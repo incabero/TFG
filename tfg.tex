@@ -1,0 +1,966 @@
+\documentclass[12pt,a4paper,titlepage]{book}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{setspace}  
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{fancyhdr}
+\usepackage{algorithmic}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage[spanish]{varioref}
+\usepackage{polynom}
+\usepackage{eurosym}
+\usepackage{amsmath,enumerate}
+\usepackage{wrapfig}
+\usepackage{cancel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx} % figuras
+\usepackage{multirow, array} % para las tablas
+\usepackage{float} % para usar [H]
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{soul}
+\usepackage{float}
+\graphicspath{ {images/} }
+\usepackage{pdfpages}
+\pagestyle{plain} % es el que utiliza por defecto, headings lo pone arriba el pie de pagina
+
+
+\newtheorem{teo}{Teorema}[chapter]
+\newtheorem{lema}[teo]{Lema}
+\newtheorem{prop}{Proposición}[chapter]
+
+\theoremstyle{remark}
+\newtheorem{defi}{Definición}[chapter]
+\newtheorem{eje}{Ejemplo}[chapter]
+\newtheorem{nota}{Nota}[chapter]
+
+\begin{document}
+\includepdf[pages={1},scale=0.9,pagecommand={}]{Portada_TFG_2018.pdf}
+
+
+
+
+\tableofcontents 
+\newpage
+\chapter{Medidas de Haussdorf}
+\section{Preliminares de teoría de la medida}
+
+En esta sección comenzaremos por definir conceptos básicos de teoría de la medida,que podemos encontrar también en  \cite{extre,sw}.
+
+\begin{defi}
+Sea $X$ un conjunto arbitrario. Llamaremos semianillo a una colección no vacía $\mathcal{A}_0 \subseteq \mathcal{P}\left( X\right) $ que cumple:
+
+$\bullet$ Si $A, B \in \mathcal{A}_0 \Rightarrow A \cap B \in \mathcal{A}_0$
+
+$\bullet$ Si $A, B \in \mathcal{A}_0 \Rightarrow \exists A_1 , \ldots , A_k \in \mathcal{A}_0$ disjuntos y tales que  $A - B = \displaystyle\bigcup_{i=1}^{k}{A_i}$
+
+
+\end{defi}
+
+\begin{defi} 
+Sea $X$ un conjunto y $\mathcal{A}_0$ un semianillo de subconjuntos de $X$. Diremos que una aplicación $\mu: \mathcal{A}_0 \longrightarrow \left[ 0, \infty \right] $ es una medida si cumple:
+
+$\bullet$ $\mu \left( \emptyset \right) =0$
+
+$\bullet$ es numerablemente aditiva, es decir, dados $\left\lbrace A_n \right\rbrace _{n \in \mathbb{N}} \subset \mathcal{A}_0$  disjuntos y cuya unión esté en $\mathcal{A}_0$, entonces 
+\begin{equation*}
+\mu \left( \displaystyle\bigcup_{n=1}^{\infty}{A_n }\right) = 
+ \displaystyle\sum_{n=1}^{\infty} \mu \left( A_n \right).
+\end{equation*}
+\end{defi}
+
+\vspace{0.5em}
+\begin{eje}
+El conjunto de intervalos semiabiertos $\mathcal{A}_0 := \left\lbrace \left( a,b \right] : a, b \in \mathbb{R}, a \leq b \right\rbrace  $ es un semianillo en $\mathbb{R}$. Se puede ver que $\mu\left( \left( a,b \right] \right)=b-a $ es una medida en $\mathcal{A}_0$.
+\end{eje}
+\noindent Así tenemos definida una medida sobre una clase reducida de conjuntos, por lo que queremos extenderla a una clase más amplia. Para ello damos la siguiente definición.
+\vspace{0.5em}
+
+\begin{defi}
+ Una medida exterior en $X$ es una función 
+
+\begin{equation*}
+\mu^* : \mathcal{P}\left( X \right) \longrightarrow \left[ 0, \infty \right] 
+\end{equation*}
+
+\noindent verificando que:
+
+$\bullet$ \hspace{0.2em}$\mu^*\left( \emptyset \right)=0 $
+ 
+$\bullet$ \hspace{0.2em}Si $A \subset B \subset X$, entonces $\mu^*\left( A\right)\leq \mu^*\left( B\right)$
+
+$\bullet$ \hspace{0.2em}Si $B_n$ es una sucesión de subconjuntos de $X$ entonces 
+\begin{equation*}
+\mu^*\left( \displaystyle\bigcup_{n=1}^{\infty}{B_n }\right) \leq 
+ \displaystyle\sum_{n=1}^{\infty} \mu^*\left( B_n \right).
+\end{equation*}
+\end{defi}
+\vspace{0.5em}
+
+Las medidas exteriores no cumplen la aditividad, sino únicamente la subaditividad, lo que implica que puede ocurrir que exista un conjunto que al partirlo en dos, la suma de sus medidas exteriores sea mayor que la medida exterior del conjunto original.
+\vspace{0.3em}
+
+\noindent A continuación, mediante la siguiente proposición,  construimos una gran cantidad de medidas exteriores.
+\vspace{0.5em}
+
+\begin{prop} \label{medida exterior}
+Sea $\mathcal{C}$ una colección de subconjuntos de $X$ y $\mu : \mathcal{C} \longrightarrow \left[ 0, \infty \right] $ una función cualquiera, tales que $\emptyset \in \mathcal{C}$ y $\mu \left( \emptyset \right) = 0$. Para cada $B \subset \Omega$,
+\begin{equation*}
+\mu^* \left( B \right) = \inf \left\lbrace  \displaystyle\sum_{n=1}^{\infty} \mu\left( A_n \right) : A_n \in \mathcal{C}, B \subset \displaystyle\bigcup_{n=1}^{\infty}{A_n } \right\rbrace 
+\end{equation*}
+define una medida exterior (medida exterior generada por $\mu$), para la que $\mu^*\left(A \right)\leq \mu \left(A \right)$, para $A \in \mathcal{C}$. Además si $\mathcal{C}=\mathcal{A}_0 $ es un semianillo y $\mu$ una medida, $\mu^*$ coincide con $\mu$ sobre $\mathcal{A}_0$.
+\end{prop}
+
+\begin{eje}[Medida exterior de Lebesgue]
+En $\mathbb{R}$, sea $\mathcal{C}=\left\lbrace \left( a,b\right]  : a \leq b \in \mathbb{R} \right\rbrace $ y $\mu\left( a,b\right] =b-a$, entonces, por la proposición \ref{medida exterior}, para $A \subset \mathbb{R}$, la medida exterior de Lebesgue viene definida como:
+\begin{equation*}
+m^*\left( A\right) = \inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} \left( b_n - a_n \right)  : a_n \leq b_n \in \mathbb{R}, A \subset \displaystyle\bigcup_{n=1}^{\infty} \left( a_n, b_n \right]  \right\rbrace 
+\end{equation*}
+y además, $m^*\left( \left( a,b \right] \right)=\mu\left( \left( a,b \right] \right) =b-a$.
+\end{eje}
+
+\begin{defi}
+Sea X un conjunto arbitrario. Una colección $\mathcal{A}$ de subconjuntos de X $\left( \mathcal{A} \subset \mathcal{P}\left( X\right) \right) $ es una $\sigma - $ álgebra si:
+
+$\bullet$ $\emptyset \in \mathcal{A}$
+
+$\bullet$ $A \in \mathcal{A} \Rightarrow A^c \in \mathcal{A}$
+
+$\bullet$ Para cada sucesión numerable $\left\lbrace A_i \right\rbrace _{i \in \mathbb{N}}$ de conjuntos que pertenecen a $\mathcal{A}$, el conjunto $\displaystyle\bigcup_{i=1}^{\infty} A_i$ pertenece a $\mathcal{A}$.
+\vspace{0.5em}
+
+Al par $\left( X,\mathcal{A} \right) $ se le denomina espacio medible.
+\end{defi}
+
+\begin{defi}
+Sea $\left( X, \mathcal{A} \right) $ un espacio medible, con $\mathcal{A}$ una $\sigma -$ álgebra. Entenderemos por medida sobre la $\sigma -$ álgebra,  una función no negativa 
+\begin{equation*}
+\mu : \mathcal{A} \longrightarrow \left[ 0,\infty \right] 
+\end{equation*}
+que satisface:
+
+$\bullet$ $\mu \left( \emptyset \right) =0$
+
+$\bullet$ Es numerablemente aditiva, es decir, dados $A_1, \hdots, A_n \in \mathcal{A}$ disjuntos, entonces
+\begin{equation*}
+\mu \left( \displaystyle\bigcup_{n=1}^{\infty}{A_n }\right) = 
+ \displaystyle\sum_{n=1}^{\infty} \mu \left( A_n \right).
+\end{equation*}
+\end{defi}
+
+Acabamos de ver que es numerablemente aditiva. Nuestro propósito es localizar la $\sigma -$ álgebra donde las medidas sean numerablemente aditivas.
+
+\begin{defi}
+ Sea $\mu^*$ una medida exterior en $X$. Diremos que $A \subset X$ es $\mu^* -$ medible si
+\begin{equation*}
+\mu^*\left( E\right) =\mu^*\left( E\cap A\right) + \mu^*\left( E\cap A^c\right) \hspace{1.5em} \forall E \subset X
+\end{equation*}
+Denotaremos con $\mathcal{M_{\mu^*}}$ la familia de los conjuntos $\mu^* -$ medibles.
+\end{defi}
+
+\begin{teo}[Teorema de Caratheodory] 
+Sea $X$ un conjunto, $\mu^*$ una medida exterior en $X$. Entonces:
+
+\noindent $\bullet$ $\mathcal{M_{\mu^*}}$ es un $\sigma -$ álgebra.
+
+\noindent $\bullet$ La restricción de $\mu^*$ a los $\mu^* -$ medibles $\left( \mathcal{M_{\mu^*}}\right) $ es una medida.
+
+\noindent $\bullet$ Si además $\mu^*$ era la media exterior generada por la medida $\mu$ de un semianillo $A_0$,
+entonces $A_0 \subset \mathcal{M_{\mu^*}}$.
+\end{teo}
+
+\vspace{1em}
+
+Los dos teoremas anteriores nos permiten construir una amplia clase de medidas en $\mathcal{B} \left( \mathbb{R} \right) $. Centrémonos ahora en la medida de Lebesgue.
+\vspace{0.5em}
+
+Hemos construido una medida exterior $m^*$. Ahora, por el teorema de Caratheodory, tenemos que la resticción de $\mu^*$ a los medibles es una medida, y además, como está generada por la medida del semianillo  de los intervalos semiabiertos, $\mathcal{A}_0$, entonces $\mathcal{A}_0 \subset \mathcal{M}_{m^*}$ . Por lo tanto, tiene que contener a la menor $\sigma -$ álgebra que contiene a los intervalos semiabiertos, la de los borelianos.
+
+\vspace{1em}
+
+En $\mathbb{R}$ cubríamos por intervalos de la forma $\left( a, b \right] $. Si lo extendemos a $\mathbb{R}^d$,  podemos cubrir con rectángulos $I$ de la  forma $I= \left( a_1, b_1 \right] \times \hdots \times \left( a_d, b_d \right]$. Definimos $m_d \left( I \right)  $ como el producto $\displaystyle\prod_{i=1}^d \left(b_i - a_i \right)$. Así, podemos definir la medida exterior de Lebesgue más general en  $\mathbb{R}^d$ como:
+
+\begin{defi}
+Sea $A \subset \mathbb{R}^d$. Se define la medida
+exterior de Lebesgue del conjunto $A$ como
+\begin{equation*}
+m_d^*\left( A \right) := \inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} m_d \left( I_j \right) : A \subset \displaystyle\bigcup_{j=1}^{\infty}{I_j}, I_j \hspace{0.2em} \text{rectángulo  semiabierto  en } \mathbb{R}^d \right\rbrace ,
+\end{equation*}
+donde el ínfimo se toma en todos los cubrimientos de $A$ por uniones numerables de rectángulos semiabiertos en $\mathbb{R}^d$ definidos anteriormente.
+\end{defi}
+
+Siguiendo el mismo argumento que en $\mathbb{R}$, obtendríamos para $\mathcal{B}\left(\mathbb{R}^d \right)$ la medida de Lebesgue $m_d$.
+\vspace{0.5em}
+Notemos que si intentamos calcular el área de una superficie de $\mathbb{R}^3$ con la medida de Lebesgue, no somos capaces, por lo que necesitamos otra medida capaz de ello. Veamos ahora las medidas de Hausdorff.
+
+\section{Medida de Haussdorf}
+En esta sección nos centraremos en la distancia euclídea, pero los siguientes resultados se pueden aplicar a cualquier espacio métrico, obteniendo resultados diferentes.
+
+
+\noindent Las medidas de Hausdorff permiten medir los conjuntos de dimensión $p$ en un espacio métrico, como por ejemplo las superficies en $\mathbb{R}^3$ o las longitudes de las curvas.
+
+\noindent Veamos cómo se construye la medida exterior de Hausdorff.
+
+\begin{defi}
+Llamamos diámetro de un B $\subset \mathbb{R}^d$ al valor
+\begin{equation*}
+diam\left( B \right)  = \sup \left\lbrace d\left( x,y\right)  : x,y \in B \right\rbrace ,
+\end{equation*}
+donde $d$ es la distancia.
+
+\noindent Ahora para cada $p > 0$ y $\delta > 0$ definimos la función de conjunto que para cada $A \subset X$ vale 
+\begin{equation*}
+H_{p,\delta}\left( A\right) =\inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} \gamma_n diam \left( B_n \right)^p : A \subset \bigcup B_n, diam \left( B_n \right) \leq \delta \right\rbrace ,
+\end{equation*}
+donde 
+\begin{equation*}
+\gamma_n= \frac{m\left( B\right)}{2^n}=\frac{\pi^{n/2}}{2^n \Gamma\left( 1+\left( n/2\right) \right) } \hspace{3em} \footnote{
+En el libro \cite{extre} podemos comprobar que esta constante $\gamma_n$ es la anteriormente mencionada.}
+\end{equation*}
+y las cuales, por la proposición \ref{medida exterior}, son medidas exteriores que verifican que
+\begin{equation*}
+\delta \leq \varepsilon \hspace{1em} \Rightarrow \hspace{1em}  H_{p,\delta}\left( A\right)  \geq H_{p,\varepsilon}\left( A\right) , \hspace{3em} \footnote{Esto es aplicado de forma general, pero, para entenderlo, podemos ver un ejemplo finito y extenderlo: Si tomamos $A=\left\lbrace a,b,c\right\rbrace $ y $B=\left\lbrace a,b,c,d,e,f\right\rbrace $, entonces es obvio que $ A \leq B$. Como la función $H$ mide el ínfimo, entonces tendríamos que $H(A)=\inf \left\lbrace a,b,c\right\rbrace $, que podría ser $a, b$ o $c$. Sin embargo $H(B)=\inf \left\lbrace a,b,c,d,e,f\right\rbrace $ que podría ser $a, b$ o $c$, es decir, $H(A)$, o podría ser $d, e$ o $f$. Por lo tanto, $ H(B) \leq H(A)$.}
+\end{equation*} 
+y por tanto existe el límite, que también es medida exterior
+\begin{equation*}
+H_p\left( A\right) =\lim_{\delta \rightarrow 0} H_{p,\delta}\left( A\right),
+\end{equation*}
+y que llamamos la medida exterior p-dimensional de Hausdorff.
+\end{defi}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{cubrimiento.pdf}
+\caption{Ejemplo de un posible cubrimiento por bolas de un rectángulo.}
+\end{figure}
+\begin{defi}
+Diremos que una medida exterior $\mu^*$ en $\mathbb{R}^d$ con la distancia euclídea es métrica si dados $A, B \subset X$  tales que $d\left( A, B\right) > 0$,
+\begin{equation*}
+\mu^*\left( A \cup B\right) = \mu^*\left( A\right)  + \mu^*\left( B\right).
+\end{equation*}
+\end{defi}
+
+\begin{prop}\label{p2}
+Si $\mu^*$ es una medida exterior métrica en $\mathbb{R}^d $, entonces $\mathcal{B}\left( \mathbb{R}^d \right) \subset \mathcal{M}_{\mu^*}$.
+\end{prop}
+
+\begin{teo}
+$H_p : \mathcal{P}\left( X\right) \longrightarrow \left[ 0, \infty\right] $ es una medida exterior métrica.
+\end{teo}
+
+Como hemos visto en el teorema anterior que $H_p \left( A\right) $ es una medida exterior métrica en $\mathbb{R}^d$, entonces, por la proposición \ref{p2}, $\mathcal{B}\left( \mathbb{R}^d \right) \subset \mathcal{M}_{H_p}$.
+\begin{defi}
+Llamamos medida de Hausdorff p-dimensional a la restricción de $H_p$ a los borelianos $\mathcal{B}\left( \mathbb{R}^d \right)$.
+\end{defi}
+
+
+\vspace{1em}
+
+
+\noindent Estudiemos ahora la medida exterior de Hausdorff dependiendo de su dimensión. Veremos que:
+
+$\bullet$ Si es 0-dimensional, entonces corresponde con al medida de contar.
+
+$\bullet$ Si es 1-dimensional corresponde con la longitud de la curva.
+
+$\bullet$ Si es d-dimensional, con d $\in  \mathbb{N} $, entonces corresponde con la medida de Lebesgue salvo una constante.
+
+\begin{defi}
+Sea $X$ un conjunto cualquiera y sea $\mathcal{C}=\mathcal{P}\left( X\right) $. Definimos $\mu\left( A\right) $ como el número de elementos de A. Si A tiene n $\in \mathbb{N}$ elementos, entonces $\mu \left( A\right) =n$, y si A es un conjunto de infinitos elementos, entonces $\mu \left( A\right) = \infty$. A esto es lo que denominamos la medida de contar.
+\end{defi}
+
+\begin{teo}
+$H_0$ corresponde con la medida de contar.\footnote{Se tomará como convenio que $diam\left( \emptyset\right)^0 =0$, $diam\left( A\right)^0 =1$, con $A \neq \emptyset$ , en particular debemos entender que $diam \left( \left\lbrace x\right\rbrace \right) ^0=1$}
+\end{teo}
+\begin{proof}
+Sea 
+
+\begin{equation*}
+H_{0,\delta}\left( A\right)  =\inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} \gamma_n diam \left( B_n \right)^0 : A \subset \bigcup B_n, diam \left( B_n \right) \leq \delta \right\rbrace  
+\end{equation*}
+
+\begin{equation*}
+= \inf \left\lbrace \displaystyle\sum_{n=1}^{\infty}\gamma_n : A \subset \bigcup B_n, diam \left( B_n \right) \leq \delta \right\rbrace
+\end{equation*}
+\vspace{1em}
+
+Dado un conjunto de n elementos, tomamos bolas de radio menor que $\frac{1}{2}$ y menor que $\delta$. Veamos que $H\left(A \right)\leq n$. Para un conjunto de n elementos, tomamos $\delta$ menor que la mitad de la distancia que separa cada par de puntos. Nótese que $H_{0,\delta}\left( A\right)  \leq n$, y por tanto, tomando límite cuando $\delta$ tiende a 0, tenemos que $H_0 \leq n$.
+\vspace{0.5em}
+
+Nótese que si quiero cubrir un conjunto de n elementos con diámetro menor que delta necesito al menos n conjuntos no vacíos, ya que ningún conjunto puede cubrir dos puntos. Por tanto, se tiene que $H_0 \geq n$.
+
+
+\end{proof}
+\begin{defi}
+Sea $I \subset \mathbb{R}$ un intervalo de extremos a, b, abierto o cerrado, $I=\left( a, b\right) $ o $I=\left[ a, b\right] $ y $\sigma : I \longrightarrow \mathbb{R}^n$ una curva continua. Dado $T \subset I$ un subconjunto finito y ordenado $\left(t_1 < t_2 < \hdots \right)$, denotaremos la longitud de la poligonal correspondiente con
+\begin{equation*}
+p\left( T\right) =\displaystyle\sum_{i=1}^{m}\parallel \sigma \left( t_i\right)  - \sigma\left( t_{i-1}\right) \parallel_2
+\end{equation*}
+y definimos la longitud de $\sigma$ como
+\begin{equation*}
+L\left( \sigma \right): =\sup\left\lbrace p\left( T\right)  : T \subset I finito \right\rbrace.
+\end{equation*}
+%del mismo modo, para $t<s \in I$, denotamos 
+%\begin{equation*}
+%C_{at}=\left\lbrace \sigma\left( r\right) : r \in I, r \leq t \right\rbrace , \hspace{0.5em} y \hspace{0.5em} C_{ts}=\sigma\left[ t,s\right] 
+%\end{equation*}
+%y respectivamente, de forma análoga, sus longitudes $L\left( C_{at}\right)$ y $L\left( C_{ts}\right) $
+\end{defi}
+
+\begin{teo}
+Siempre se tiene que $L\left( \sigma \right) \geq H_1\left( \sigma \left( I \right) \right) $, y si $\sigma$ es inyectiva (salvo en un número finito de puntos), entonces $L\left( \sigma \right) = H_1\left( \sigma \left( I \right) \right) $.
+\begin{proof}
+La demostración no la haremos, pero se puede consultar en \cite[pág 51]{extre}.
+\end{proof}
+\end{teo}
+
+\begin{lema}
+Sea $B=B \left( 0,1 \right) $ la bola unidad cerrada en $\mathbb{R}^n$, $m$ la medida de Lebesgue y $Q=\left[  0,1\right] ^n$ el cubo unidad, entonces
+\begin{equation*}
+\frac{1}{m\left( B\right) } \leq \frac{H_n\left( Q\right)}{\gamma_n} \leq \left( \sqrt{n}\right) ^n .
+\end{equation*}
+
+\begin{proof}
+
+\noindent Veamos que $\frac{1}{m\left( B\right) } \leq \frac{H_{n}\left( Q\right)}{\gamma_n}$.
+\vspace{0.5em}
+
+\noindent Sea $\delta > 0$, $Q \subset \bigcup A_i$  y $diam\left( A_i\right) <  \delta$.
+\vspace{0.5em}
+
+\noindent Para cada $i$ elegimos un $x_i \in A_i, r_i=diam\left( A_i\right) $ y la bola $B_i=B\left( x_i,r_i\right) $. Por tanto, $A_i \subset B_i$ y así se tiene entonces que $Q \subset \bigcup A_i \subset \bigcup B_i$. Tomando medidas de Lebesgue  \footnote{Notemos que $m\left( B_i\right) =m\left( B\left( x_i,r_i\right) \right) =m\left( x_i+r_i B\left( 0,1\right) \right) =m\left( r_i B\left( 0,1\right) \right) =r_i^n m\left( B\left( 0,1\right) \right)$ }, se tiene que
+\begin{equation*}
+1=m\left( Q\right) \leq m\left( \bigcup B_i \right) \leq \displaystyle\sum m\left( B_i\right) = \displaystyle\sum r_i^n m\left( B\right) \hspace{1.5em} 
+\end{equation*}
+
+\noindent Tomando el ínfimo sobre todos los posibles cubrimientos tenemos
+\begin{equation*}
+\frac{\gamma_n}{m\left( B\right) } \leq \gamma_n \inf \left\lbrace \displaystyle\sum r_i^n : Q \subset \bigcup A_i, diam\left( A_i \right) < \delta, r_i=diam\left( A_i \right) \right\rbrace  = H_{n,\delta}\left( Q\right)  \leq H_n\left( Q\right) 
+\end{equation*}
+\vspace{1em}
+
+\noindent Veamos ahora que $H_n\left( Q\right) \leq \gamma_n \left( \sqrt{n}\right) ^n$.
+\vspace{0.5em}
+
+\noindent Para cada $m \in \mathbb{N}$, sea $\delta_m = \frac{2 \sqrt{n}}{m}$. Ahora dividimos $\left[ 0,1\right] $ en m intervalos de la siguiente manera: 
+\begin{equation*}
+\left[ 0,\frac{1}{m}\right] , \left[ \frac{1}{m},\frac{2}{m}\right], \hdots , \left[ \frac{m-1}{m},1\right]
+\end{equation*}
+
+\noindent Entonces, $Q=\bigcup Q_i$, donde $Q_i$ son los $m^n$ cubos formados por todos los productos $n -$ dimensionales de los intervalos anteriores. Además, dados $x,y \in \left[ 0,r\right] ^n$ 
+\begin{equation*}
+d\left( x,y\right) =\sqrt{\displaystyle\sum_{i=1}^n \left( x_i-y_i\right) ^2} \leq \sqrt{n r^2} = r \sqrt{n} \hspace{3em} \footnote{La igualdad se alcanza cuando $x=\left(0, \hdots , 0 \right)$ e $y=\left(r, \hdots , r \right)$}
+\end{equation*}
+
+\noindent Entonces tendremos que $diam\left( Q_i\right) =\frac{\sqrt{n}}{m} < \delta_m$ y $ H_{n,\delta_m}\left( Q\right) \leq \gamma_n \displaystyle\sum_{i=1}^{m^n} diam\left( Q_i\right)^n = \gamma_n m^n \frac{\left( \sqrt{n}\right) ^n}{m^n}=$
+
+\noindent $=\gamma_n \left( \sqrt{n}\right)^n$. 
+\vspace{0.5em}
+
+\noindent Tomando límite cuando $m \longrightarrow \infty$, entonces $\delta_m \longrightarrow 0$, y se tiene que $H_n\left( Q\right) \leq \gamma_n \left( \sqrt{n}\right)^n$.
+\end{proof}
+\end{lema}
+
+
+\begin{teo}\label{hlebesgue}
+$ H_d$ es la medida de Lebesgue en $\mathbb{R}^d$.  
+\begin{proof}
+Nótese que la medida de Haussdorf es invariante por traslaciones, ya que el diámetro de un conjunto lo es. Esto es un resultado conocido de teoría de la medida \cite[pág 38, Teorema 1.5.19 ]{extre}, que las únicas medidas sobre $\mathcal{B}\left(\mathbb{R}^n \right)$ invariante por traslaciones en las que el cubo unidad tiene medida finita son múltiplos de la medida de Lebesgue. De ello se deduce el teorema.
+\end{proof}
+\end{teo}
+
+
+
+
+
+
+\chapter{Fórmula del área}
+
+\cite{ingles} En este capítulo y en el siguiente se verán la fórmula del área y coarea. Estudiaremos las funciones Lipschitz continuas $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$.
+
+Hay dos casos diferentes dependiendo del tamaño de m y n:
+\vspace{0.5em}
+
+$\bullet$ Si $m\geq n$, la fórmula de área afirma que la medida $n-$ dimensional de $f\left( A\right) $, teniendo en cuenta la multiplicidad, se puede calcular integrando el Jacobiano apropiado de $f$ sobre $A$.
+\vspace{0.5em}
+
+$\bullet$ Si $m \leq n$, la fórmula de la coarea establece que la integral de la $n-m$ medida dimensional de los conjuntos de niveles de $f$ se puede calcular integrando el Jacobiano. Esta afirmación es una generalización a largo alcance del teorema de Fubini.
+
+Comenzaremos con un estudio detallado de las propiedades de diferenciabilidad de las funciones Lipschitz continuas y enunciaremos el teorema de Rademacher. Luego discutiremos las aplicaciones lineales e introduciremos los Jacobianos.
+\section{Preliminares}
+\begin{nota}
+A lo largo de lo que queda de trabajo, utilizaremos $| \cdot |$ para indicar la norma euclídea. No confundir con módulo.
+\end{nota}
+\begin{defi}
+
+
+\begin{enumerate}[(i)]
+\item Sea $A \subset \mathbb{R}^n$ un conjunto. Sea $f:A \longrightarrow \mathbb{R}^m$ una función continua tal que $| f\left( x\right) -f\left( y\right) | \leq c | x-y | $ para alguna constante $c$ , $\forall x,y  \in A$. A la función $f$ anterior se le denomina función Lipschitz.
+\vspace{0.5em}
+
+\item La constante más pequeña que cumple que  $| f\left( x\right) -f\left( y\right) | \leq c | x-y | \hspace{0.2em} \forall x,y $ se denota como
+\begin{equation*}
+Lip\left( f\right) := \sup \left\lbrace \frac{| f\left( x\right) -f\left( y\right) |}{| x-y |} : x,y \in A, x\neq y\right\rbrace 
+\end{equation*}
+
+\noindent Así, $| f\left( x\right) -f\left( y\right) | \leq Lip\left( f\right)| x-y | \hspace{0.5em} x,y \in A$.
+\vspace{0.5em}
+
+\item La función $f: A \longrightarrow \mathbb{R}$ que cumple que si para cada compacto $K \subseteq A$ existe una constante $c_k$ tal que  $| f\left( x\right) -f\left( y\right) | \leq c_k | x-y | \hspace{0.5em} \forall x,y \in K$ se denomina localmente Lipschitz.
+\end{enumerate}
+\end{defi}
+
+\begin{teo}[Extensión de aplicaciones de Lipschitz]
+Asumimos $A \subset \mathbb{R}^n$, y $f:A \longrightarrow \mathbb{R}^n$ Lipschitz continua. Entonces existe una función Lipschitz continua $\tilde{f}:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ tal que 
+
+\begin{enumerate}[(i)]
+
+\item $\tilde{f}=f$ en A.
+\vspace{0.5em}
+
+\item $Lip\left( \tilde{f} \right)  \leq \sqrt{m} \hspace{0.2em} Lip\left( f\right) .$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}
+La función $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ es diferenciable en $x \in \mathbb{R}^n$ si existe una aplicación lineal $L: \mathbb{R}^n \longrightarrow \mathbb{R}^m$  tal que 
+\begin{equation*}
+\displaystyle\lim_{y \to x}{\frac{| f\left( x\right) -f\left( y\right) - L \left( y-x\right) | }{| x - y |}}=0
+\end{equation*}
+o equivalentemente, 
+\begin{equation*}
+f\left( y\right) =f\left( x\right) +L\left( y-x\right) +O\left( | y-x | \right) \hspace{1em} y \to x
+\end{equation*}
+\end{defi}
+
+\begin{nota}
+Si L existe, es único, y escribimos $Df\left( x\right) $ como la derivada de $f$ sobre x.
+\end{nota}
+\vspace{1em}
+
+A continuación enunciaremos el teorema de Rademacher, un teorema que de suma importancia, ya que a partir de una función Lipschitz podemos asegurar que dicha función es localmente diferenciable, lo cual es sorprendente, ya que ya que la desigualdad
+$| f (x) - f (y) | \leq Lip (f) | x - y |$
+aparentemente no dice nada sobre la posibilidad de diferenciabilidad local.
+\begin{teo}[Teorema de Rademacher]
+Asumimos que $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ es una función localmente Lipschitz continua. Entonces f es $m^*_n - $ c.t.p. diferenciable.
+\begin{proof}
+La demostración la podemos encontrar en \cite[pág.103]{ingles}
+\end{proof}
+\end{teo}
+
+\begin{teo}[Diferenciabilidad en conjuntos de niveles]
+\begin{enumerate}[(i)]
+\item Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función localmente Lipschitz continua, y $Z:=\left\lbrace x \in \mathbb{R}^n | f\left( x\right) =0\right\rbrace $. Entonces $Df\left( x\right) =0$ para $m^*_n - $ c.t.p. \hspace{0.5em} $x \in Z$.
+\vspace{0.5em}
+
+\item Sean $f,g:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ funciones localmente Lipschitz continuas, y $Y:=\left\lbrace x \in \mathbb{R}^n | g\left( f\left( x\right) \right) = ....... \right\rbrace  $. Entonces $Dg\left( f\left( x\right) \right) Df\left( x\right) =I$ para $m^*_n -$ c.t.p. \hspace{0.5em} $x \in Y$.
+\end{enumerate}
+\end{teo}
+
+\begin{defi}
+\begin{enumerate}[(i)]
+\item Una aplicación lineal $O:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ es ortogonal si 
+\begin{equation*}
+\left( Ox\right)\cdot \left( Oy\right)=x\cdot y \hspace{0.5em} \forall x,y \in \mathbb{R}^n
+\end{equation*}
+\vspace{0.5em}
+
+\item Una aplicación lineal $S:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ es simétrico si 
+\begin{equation*}
+x \cdot \left( Sy\right)=\left( Sx\right) \cdot y \hspace{0.5em} \forall x,y \in \mathbb{R}^n
+\end{equation*}
+\vspace{0.5em}
+
+\item Una aplicación lineal $D:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ es diagonal si exixten $\lambda_1, \hdots , \lambda_n \in \mathbb{R}$ tal que
+\begin{equation*}
+Dx=\left( \lambda_1x_1, \hdots , \lambda_nx_n \right)  \hspace{0.5em} x \in\mathbb{R}^n
+\end{equation*}
+\vspace{0.5em}
+
+\item Sea $A:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ lineal. El adjunto de A es una aplicación lineal $A^*:\mathbb{R}^m \longrightarrow \mathbb{R}^n$ definido por 
+\begin{equation*}
+x \cdot \left( A^*y\right)=\left( A^*x\right) \cdot y \hspace{0.5em} \forall x \in \mathbb{R}^n, y \in \mathbb{R}^m
+\end{equation*}
+\end{enumerate}
+\end{defi}
+
+\begin{teo}[Álgebra lineal]\quad\\
+\begin{enumerate}[(i)]
+\item $A^{**}=A$
+\vspace{0.5em}
+
+\item $\left( A \circ B \right) ^*=B^* \circ A^*$
+\vspace{0.5em}
+
+\item $O^*=O^{-1}$ si $O:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ es ortogonal.
+\vspace{0.5em}
+
+\item $S^*=S$ si $S:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ es simétrico.
+\vspace{0.5em}
+
+\item Si $S:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ es simétrico, entonces existe una aplicación ortogonal $O:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ y una aplicación diagonal $D:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ tal que $S=O \circ D \circ O^{-1}$
+\vspace{0.5em}
+
+\item Si $O:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ es ortogonal, entonces $n \leq m$ y $O^* \circ O=I$ en $\mathbb{R}^n$
+
+\hspace{21.1em} $O \circ O^*=I$ en $O\left(\mathbb{R}^m\right)$
+\end{enumerate}
+\end{teo}
+\begin{nota}
+A continuación usaremos notación matricial, en algunos ejemplos, como sigue:
+\begin{equation*}
+\begin{array}{rccl}
+L:&\mathbb{R}^n&\longrightarrow&\mathbb{R}^m\\
+&\overrightarrow{x}&\longmapsto&A\overrightarrow{x}
+\end{array}
+\end{equation*}
+donde $\overrightarrow{x}$ es una vector columna de $\mathbb{R}^n$ y $A$ es una matriz $m \times n$. Al hacer $A \overrightarrow{x}$ obtendría un vector columna de $\mathbb{R}^m$.
+\end{nota}
+
+\begin{eje}[Ejemplos de distintas aplicaciones] \quad\\
+
+\noindent \underline{Aplicación ortogonal:} Sea
+\begin{equation*}
+\begin{array}{rccl}
+O:&\mathbb{R}^n&\longrightarrow&\mathbb{R}^m\\
+&\overrightarrow{x}&\longmapsto&A\overrightarrow{x}
+\end{array}
+\end{equation*}
+donde $A=\begin{pmatrix}
+\frac{1}{\sqrt{2}}&\frac{-1}{\sqrt{2}}\\
+\frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}\\
+0&0
+\end{pmatrix}$. Se cumple que $O^* \circ O =I$ en $\mathbb{R}^2$ y que $O \circ O^* =I$ en $O\left(\mathbb{R}^3 \right)$, donde $O^*$ es el adjunto de $O$. Se puede comprobar que $A^* \circ A=I$ en $\mathbb{R}^2$ y $A \circ A^*=I$ en $O(\mathbb{R}^3)$
+\vspace{1em}
+
+\noindent \underline{Aplicación simétrica:} Sea
+\begin{equation*}
+\begin{array}{rccl}
+S:&\mathbb{R}^n&\longrightarrow&\mathbb{R}^m\\
+&\overrightarrow{x}&\longmapsto&A\overrightarrow{x}
+\end{array}
+\end{equation*}
+donde $A=\begin{pmatrix}
+-8&-1&3\\
+-1&7&4\\
+3&4&9
+\end{pmatrix}$. Se cumple que $S^*=S$. 
+
+
+\end{eje}
+
+\begin{teo}[Descomposición polar]
+Sea $L:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una aplicación lineal.
+
+\begin{enumerate}[(i)]
+
+\item Si $n \leq m$, $\exists$ una aplicación simétrica $S:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ y una aplicación ortogonal $O:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ tal que $L=O \circ S$.
+\vspace{0.5em}
+
+\item Si $m \leq n$, $\exists$ una aplicación simétrica $S:\mathbb{R}^m \longrightarrow \mathbb{R}^m$ y una aplicación ortogonal $O:\mathbb{R}^m \longrightarrow \mathbb{R}^n$ tal que $L=S \circ  O^*$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}
+Asumimos $L: \mathbb{R}^n \longrightarrow \mathbb{R}^m$ lineal.
+\begin{enumerate}[(i)]
+\item Si $n \leq m$, escribimos $L=O \circ S^*$ como anteriormente, y definimos el Jacobiano de L como $\left[ \left[ L\right] \right] =| det \left( S\right)  | $.
+\vspace{0.5em}
+
+\item Si $m \leq n$, escribimos $L=S \circ O^*$ como anteriormente, y definimos el Jacobiano de L como $\left[ \left[ L\right] \right] =| det \left( S\right)  | $.
+\end{enumerate}
+\end{defi}
+
+\begin{eje}[Ejemplo de descomposición polar]
+Sea
+\begin{equation*}
+\begin{array}{rccl}
+L:&\mathbb{R}^2&\longrightarrow& \mathbb{R}^2\\
+&(1,0)&\mapsto&(5,-1)\\
+&(0,1)&\mapsto&(7,-1)
+\end{array}
+\end{equation*}
+una aplicación lineal.
+ Podemos descomponer L en una aplicación simétrica S y una ortogonal O, como por ejemplo pueden ser: 
+
+\begin{equation*}
+\begin{array}{rccccrccl}
+O:&\mathbb{R}^2&\longrightarrow& \mathbb{R}^2&\qquad\qquad &S:&\mathbb{R}^2&\longrightarrow& \mathbb{R}^2\\
+&(1,0)&\mapsto&\left(\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\right)& & &(1,0)&\mapsto&\left(2\sqrt{2},3\sqrt{2}\right)\\
+&(0,1)&\mapsto&\left(\frac{1}{\sqrt{2}},\frac{-1}{\sqrt{2}}\right)& & &(0,1)&\mapsto&\left(3\sqrt{2},4\sqrt{2}\right)
+\end{array}
+\end{equation*}
+
+Matricialmente lo podríamos expresar como:
+\begin{equation*}
+\begin{array}{rccl}
+L:&\mathbb{R}^2&\longrightarrow& \mathbb{R}^2\\
+&\overrightarrow{x}&\mapsto&A \overrightarrow{x}\\
+\end{array},\quad\text{ donde }A=\begin{pmatrix}
+5&7\\
+-1&-1
+\end{pmatrix}.
+\end{equation*}
+
+
+
+\begin{equation*}
+\begin{array}{rccl}
+O:&\mathbb{R}^2&\longrightarrow& \mathbb{R}^2\\
+&\overrightarrow{x}&\mapsto&E \overrightarrow{x}\\
+\end{array}, \quad\text{ donde } E=\begin{pmatrix}
+\frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}\\
+\frac{1}{\sqrt{2}}&\frac{-1}{\sqrt{2}}
+\end{pmatrix}.
+\end{equation*}
+
+
+\begin{equation*}
+\begin{array}{rccl}
+S:&\mathbb{R}^2&\longrightarrow& \mathbb{R}^2\\
+&\overrightarrow{x}&\mapsto&U \overrightarrow{x}\\
+\end{array}, \quad\text{ donde }U=\begin{pmatrix}
+2\sqrt{2}&3\sqrt{2}\\
+3\sqrt{2}&4\sqrt{2}
+\end{pmatrix}.
+\end{equation*}
+
+\vspace{1em}
+
+Entonces se tiene que $O \circ S^* =A$.
+\end{eje}
+
+\begin{nota}
+$\left[ \left[ L\right] \right] = \left[ \left[ L^*\right] \right] $.
+\end{nota}
+
+\begin{teo}[Jacobianos y adjuntos]
+(i) Si $n \leq m$, $\left[ \left[ L\right] \right]^2 =det\left( L^* \circ L\right) $.
+\vspace{0.5em}
+
+(ii) Si $m \leq n$, $\left[ \left[ L\right] \right] ^2=det\left( L \circ L^*\right) .$
+\end{teo}
+
+\begin{defi}
+(i) Si $n \leq m$, definimos 
+\begin{equation*}
+\Lambda \left( m,n\right) =\left\lbrace \lambda : \left\lbrace 1, \hdots, n \right\rbrace  \longrightarrow \left\lbrace 1, \hdots, m \right\rbrace | \lambda \hspace{0.3em} est \acute{a} \hspace{0.3em} aumentando \right\rbrace 
+\end{equation*}
+
+(ii) Para cada $\lambda \in \Lambda \left( m,n\right) $, definimos $P_{\lambda}:\mathbb{R}^m \longrightarrow \mathbb{R}^n$ tal que 
+\begin{equation*}
+P_\lambda \left( x_1, \hdots , x_m \right) := \left( x_{\lambda\left( 1\right) }, \hdots , x_{\lambda\left( n\right)} \right) 
+\end{equation*}
+
+(iii) Para cada $\lambda \in \Lambda \left( m,n\right) $, definimos el subespacio $n-$ dimensional 
+\begin{equation*}
+S_\lambda:=span\left\lbrace e_{\lambda\left( 1\right) }, \hdots , e_{\lambda\left( n\right) } \right\rbrace \subseteq \mathbb{R}^m
+\end{equation*}
+Entonces, $P_\lambda$ es la proyección en $\mathbb{R}^n$ sobre $S_\lambda$.
+\end{defi}
+
+\begin{teo}[Fórmula de Binet-Cauchy]
+Asumimos que $n \leq m$ y $L:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ es lineal. Entonces
+\begin{equation*}
+\left[ \left[ L\right] \right] ^2=\displaystyle\sum_{\lambda \in \Lambda\left( m,n\right) }\left( det\left( P_\lambda \circ L\right) \right) ^2
+\end{equation*}
+\end{teo}
+\begin{nota}\label{nota}
+Para hallar $\left[\left[L\right]\right]^2$ calculamos las sumas de los cuadrados de los determinantes de cada $(n \times n)$ submatriz de la matriz $(m \times n)$ que representa L. 
+\end{nota}
+
+\begin{nota}
+Si $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$, $f=\left( f^1,  \hdots , f^m \right) $, escribimos la matriz gradiente como
+\begin{equation*}
+ Df= \begin{pmatrix} f_{x_1}^1 & \hdots &f_{x_n}^1 \\ \vdots  &  & \vdots \\ f_{x_1}^m & \hdots &f_{x_n}^m \end{pmatrix}
+\end{equation*}
+en cada punto donde Df existe.
+\end{nota}
+
+\begin{defi}
+Para un punto x de $m^*_n -$ c.t.p., definimos el Jacobinao de f como 
+\begin{equation*}
+Jf\left( x\right) :=\left[ \left[ Df\left( x\right) \right] \right] 
+\end{equation*}
+\end{defi}
+
+\section{Fórmula del área}
+\begin{lema}
+Suponemos $L: \mathbb{R}^n \longrightarrow \mathbb{R}^m$ lineal, $n \leq m $. Entonces $H_n\left( L\left( A\right) \right) =\left[ \left[ L\right] \right] m_n^*\left( A\right) $.
+\end{lema}
+
+\begin{lema}
+Sea $A \subseteq \mathbb{R}^n$ un conjunto $m_n^* - $ medible. Entonces
+
+(i) $f\left( A\right)$ es $H_n-$ medible.
+\vspace{0.5em}
+
+(ii) La aplicación $y\longmapsto H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) $ es $H_n -$ medible en $\mathbb{R}^n$.
+\vspace{0.5em}
+
+(iii) $ \displaystyle\int_{\mathbb{R}^m} H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n \leq \left( Lip\left( f\right)\right) ^n m_n^*\left( A\right) . $
+\end{lema}
+
+\begin{defi}
+La aplicación $y\longmapsto H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right)$ se denomina función de multiplicidad.
+\end{defi}
+
+\begin{lema}
+Sea $t > 1$ y sea $B:= \left\lbrace x | Df\left( x\right) \text{existe}, J f\left( x\right) >0 \right\rbrace $. Entonces hay una colección contable $\left\lbrace E_k\right\rbrace _{k=1}^\infty$ de conjuntos de Borel de $\mathbb{R}^n$ tal que
+\vspace{0.5em}
+
+(i) $B=\bigcup^\infty_{k=1}E_k$
+\vspace{0.5em}
+
+(ii) $f | _{E_k}$ es uno a uno $\left( k=1,2, \hdots \right) $ 
+\vspace{0.5em}
+
+(iii) Para cada $k = 1,2, \hdots $ existe un automorfismo simétrico $T_k: \mathbb{R}^n \longrightarrow \mathbb{R}^n$ tal que
+\begin{equation*}
+Lip\left( \left(  f | _{E_k} \right) \circ T_k^{-1}\right) \leq t
+\end{equation*}
+\begin{equation*}
+Lip\left(  T_k \circ \left(  f | _{E_k} \right) \right)^{-1} \leq t
+\end{equation*}
+\begin{equation*}
+t^{-n} | det \left( T_k\right) | \leq J f | _{E_k} \leq t^{n} | det \left( T_k\right) |
+\end{equation*}
+\end{lema}
+
+\begin{teo}[Fórmula de área]
+Sea $f: \mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función Lipschitz continua, $n \leq m$. Para cada subconjunto $A \subseteq \mathbb{R}^n$ $m_n^* -$ medible, 
+\begin{equation*}
+\displaystyle\int_{A} J f \, dx =\displaystyle\int_{\mathbb{R}^m} H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n 
+\end{equation*} 
+\end{teo}
+
+\begin{teo}[Cambio de variable]\label{variable}
+Sean $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función lipschitz continua, $n \leq m$, $g:\mathbb{R}^n \longrightarrow \mathbb{R}$. Entonces
+\begin{equation*}
+\displaystyle\int_{\mathbb{R}^n} g(x)Jf(x)\, dx =\displaystyle\int_{\mathbb{R}^m} \left[\displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} g(x) \right] \, dH_n(y)
+\end{equation*}
+\begin{proof}
+\underline{Caso 1:} Tomamos g como la suma de funciones simples positivas de la siguiente manera: $ g=\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \mathcal{X}_{A_i}$. Entonces
+\begin{equation*}
+\displaystyle\int_{\mathbb{R}^n} g Jf \, dx=\displaystyle\int_{\mathbb{R}^n}\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \mathcal{X}_{A_i} Jf \, dx
+\end{equation*}
+Por el teorema de convergencia monótona, 
+\begin{equation*}
+\displaystyle\int_{\mathbb{R}^n}\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \mathcal{X}_{A_i} Jf \, dx=\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{\mathbb{R}^n} \mathcal{X}_{A_i} Jf \, dx=\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{A_i}  Jf \, dx
+\end{equation*}
+Por la fórmula del área
+\begin{equation*}
+\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{A_i}  Jf \, dx=\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{\mathbb{R}^m}   H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)= \displaystyle\int_{\mathbb{R}^m} \displaystyle\sum_{i=1}^{\infty} \frac{1}{i}  H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)
+\end{equation*}
+\begin{equation*}
+=\displaystyle\int_{\mathbb{R}^m} \displaystyle\sum_{i=1}^\infty \frac{1}{i} \displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} \mathcal{X}_{A_i} \, dH_n(y)=\displaystyle\int_{\mathbb{R}^m}  \displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} \displaystyle\sum_{i=1}^\infty \frac{1}{i}  \mathcal{X}_{A_i} \, dH_n(y)=\displaystyle\int_{\mathbb{R}^m} \left[\displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} g(x) \right] \, dH_n(y)
+\end{equation*}
+\underline{Caso 2:} Descomponemos g como $g=g^+ - g^-$ y aplicamos el caso anterior.
+\end{proof}
+\end{teo}
+
+\section{Aplicaciones}
+\subsection{Longitud de una curva}
+Veamos que se tiene que $H_1=$ longitud de la curva $=\displaystyle\int_a^b Jf \, dx$.
+
+Sea $f:\mathbb{R} \longrightarrow \mathbb{R}^m$ una función Lipschitz continua e inyectiva, $f=\left(f^1,\hdots , f^m \right)$. Se tiene que $Df=\left(f^1_x,\hdots , f^m_x \right)$ y $(Jf)^2=\left[\left[Df \right] \right]^2=det \left(Df^* \circ Df \right)=(f^1_x)^2+ \hdots +(f^m_x)^2$. Por lo tanto, 
+\begin{equation*}
+Jf=\sqrt{(f^1_x)^2+ \hdots +(f^m_x)^2}.
+\end{equation*}
+ 
+
+Sean ahora $a,b \in (-\infty, +\infty)$, con $a < b$. Definimos la curva $C:=f\left(\left[a,b\right]\right) \subset \mathbb{R}^m$. Entonces, por lo estudiado a lo largo de la carrera, sabemos que la longitud de la curva viene dada como:
+
+\begin{center}
+longitud de C $= \displaystyle\int_a^b Jf \, dx=\displaystyle\int_a^b \sqrt{(f^1_x)^2+ \hdots +(f^m_x)^2} \, dx$
+\end{center}
+Esto no nos lo habían demostrado anteriormente, ya que es bastante complejo, pero ahora podemos demostrarlo de manera sencilla y directa gracias a la fórmula del área. Por tanto, veamos ahora que $H_1=\displaystyle\int_a^b \sqrt{(f^1_x)^2+ \hdots +(f^m_x)^2} \, dx$.
+\vspace{1em}
+
+
+Sea $A=\left[a,b\right]$, por el teorema de la fórmula del área, tenemos que 
+
+\begin{equation*}
+\displaystyle\int_{a}^b J f \, dx =\displaystyle\int_{\mathbb{R}^m} H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_1(y)
+\end{equation*} 
+
+Como $H_0$ es la medida de contar, entonces $H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right)= \left \{ \begin{matrix} 1 & \mbox{si }f^{-1}\left\lbrace y\right\rbrace \in A
+\\0&  \mbox{si }f^{-1}\left\lbrace y\right\rbrace \not\in A \end{matrix}\right.  $
+
+Por tanto, 
+\begin{equation*}
+\displaystyle\int_{\mathbb{R}^m} H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_1(y) =\displaystyle\int_C 1 \, dH_1(y) + \displaystyle\int_{\mathbb{R}^m - C} 0 \, dH_1(y)=H_1(C)
+\end{equation*}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{curva.pdf}
+\caption{Parametrización de una curva en $\mathbb{R}^m$.}
+\end{figure}
+
+
+
+\subsection{Área de un gráfico ($n\geq1$, $m=n+1$)}
+ 
+\vspace{1em}
+
+Sea $g:\mathbb{R}^n \longrightarrow \mathbb{R}$ una función lipschitz continua. Definimos $f:\mathbb{R}^n \longrightarrow \mathbb{R}^{n+1}$ como
+
+ $f(x):=(x,g(x))$. Entonces
+
+\begin{equation*}
+Df=\begin{pmatrix} 1 & \hdots & 0 \\
+& \ddots & \\
+0 & \hdots & 1 \\
+g_{x_1}& \hdots & g_{x_n} \end{pmatrix} 
+\end{equation*}
+
+Como consecuencia, por la nota \ref{nota},
+\begin{center}
+$\left(Jf\right)^2=$ suma de los cuadrados de los n x n subdeterminantes $=1+|Dg|^2$.
+\end{center}
+
+Para cada $U \subseteq \mathbb{R}^n$ abierto, definimos el gráfico de $g$ sobre $U$ como
+\begin{equation*}
+G=G(g;U):=\left\lbrace(x,g(x)) | x \in U \right\rbrace \subset \mathbb{R}^{n+1}
+\end{equation*}
+Entonces, 
+\begin{equation*}
+H_n(G)=\text{superficie del gráfico G}=\displaystyle\int_U \left(1+|Dg|^2\right)^{1/2} \, dx
+\end{equation*}
+Demostrar esto en cursos pasados es complejo, pero gracias a la fórmula del área vista anteriormente podemos demostrarlo de una manera directa y sencilla. Veámoslo.
+\vspace{1em}
+
+La segunda igualdad es conocida, ya que se ha estudiado en cursos anteriores de análisis. Veamos entonces que 
+\begin{equation*}
+H_n(G)=\displaystyle\int_U \left(1+|Dg|^2\right)^{1/2} \, dx
+\end{equation*}
+
+Tenemos que $(Jf)^2=1+|Dg|^2$. Entonces, por la fórmula del área se tiene que 
+\begin{equation*}
+\displaystyle\int_U Jf \,dx=\displaystyle\int_{\mathbb{R}^m} H_0\left( U\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)
+\end{equation*}
+Como $H_0$ es la medida de contar, entonces $H_0\left( U\cap f^{-1}\left\lbrace y\right\rbrace \right)= \left \{ \begin{matrix} 1 & \mbox{si }f^{-1}\left\lbrace y\right\rbrace \in U
+\\0&  \mbox{si }f^{-1}\left\lbrace y\right\rbrace \not\in U \end{matrix}\right.  $
+\vspace{1em}
+
+Por tanto, 
+\begin{equation*}
+\displaystyle\int_{\mathbb{R}^m} H_0\left( U\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y) =\displaystyle\int_G 1 \, dH_n(y) + \displaystyle\int_{\mathbb{R}^m - G} 0 \, dH_n(y)=H_n(G)
+\end{equation*}
+
+\subsection{Área de una hipersuperficie paramétrica ($n\geq 1$ , $m=n+1$)}
+
+\vspace{1em}
+
+Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^{n+1}$ una función Lipschitz continua e inyectiva, $f=\left(f^1, \hdots, f^{n+1} \right)$.
+
+Se tiene entonces que 
+
+\begin{equation*}
+Df=\begin{pmatrix} f_{x_1}^1 & \hdots & f_{x_n}^1 \\
+\vdots&   &\vdots \\
+f_{x_1}^{n+1} & \hdots & f_{x_n}^{n+1}  \end{pmatrix} 
+\end{equation*}
+
+Ahora, si denotamos $\widehat{f}^k=(f^1,f^2,\hdots, f^{k-1},f^{k+1},\hdots, f^{n+1})$, entonces se tiene que
+\begin{equation*}
+(Jf)^2=det(Df^* \circ Df)=\displaystyle\sum_{k=1}^{n+1} |D\widehat{f}^k|^2
+\end{equation*}
+Sea $U \subseteq \mathbb{R}^n$ abierto, $S:=f(U) \subseteq \mathbb{R}^{n+1}$. Entonces 
+\begin{equation*}
+H_n(S)=\text{área n-dimensional de S}=\displaystyle\int_U \left(\displaystyle\sum_{k=1}^{n+1} |D\widehat{f}^k|^2 \right)^{1/2} \, dx
+\end{equation*}
+Si nos ponemos a demostrar esta fórmula con los conocimientos de cursos anteriores, nos sería muy complejo, pero una vez vista en este trabajo la fórmula del área, su demostración es prácticamente directa. Veámoslo.
+\vspace{1em}
+
+La segunda igualdad es conocida, ya que se ha estudiado en cursos anteriores de análisis. Veamos entonces que 
+\begin{equation*}
+H_n(S)=\int_U \left(\sum_{k=1}^{n+1} |D\widehat{f}^k|^2 \right)^{1/2} \, dx
+\end{equation*}
+
+Tenemos que $(Jf)^2=\displaystyle\int_U \sum_{k=1}^{n+1} |D\widehat{f}^k|^2$. Entonces, por la fórmula del área se tiene que 
+\begin{equation*}
+\displaystyle\int_U Jf \,dx=\displaystyle\int_{\mathbb{R}^{n+1}} H_0\left( U\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)
+\end{equation*}
+Como $H_0$ es la medida de contar, entonces $H_0\left( U\cap f^{-1}\left\lbrace y\right\rbrace \right)= \left \{ \begin{matrix} 1 & \mbox{si }f^{-1}\left\lbrace y\right\rbrace \in U
+\\0&  \mbox{si }f^{-1}\left\lbrace y\right\rbrace \not\in U \end{matrix}\right.  $
+\vspace{1em}
+
+Por tanto, 
+\begin{equation*}
+\displaystyle\int_{\mathbb{R}^{n+1}} H_0\left( U\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y) =\displaystyle\int_S 1 \, dH_n(y) + \displaystyle\int_{\mathbb{R}^{n+1} - S} 0 \, dH_n(y)=H_n(S)
+\end{equation*}
+
+FALTA AÑADIR PARA EJEMPLOS CONCRETOS
+\subsection{Subvariedades}
+Sea $ M \subseteq \mathbb{R}^m$ Lipschitz continuo, subvariedad n-dimensional. Supongamos que $U \subseteq \mathbb{R}^n$ and $f :U \longrightarrow M$ es el gráfico de M. Sea un conjunto $ A \subseteq f(U)$, donde $A$ es Borel, y sea $ B := f^{-1}(A)$. Definimos
+\begin{equation*}
+g_{ij}:=f_{x_i} \cdot f_{x_j} \hspace{1em} (i,j=1, \hdots , n).
+\end{equation*}
+Entonces
+\begin{equation*}
+(DF)^* \circ DF=((g_{ij}))
+\end{equation*}
+y así
+\begin{equation*}
+Jf=g^{\frac{1}{2}} \quad \text{para} g:=det((g_{ij})).
+\end{equation*}
+Por lo tanto, 
+\begin{equation*}
+H_n(A)=\text{volumen de A en M}=\int_B g^{\frac{1}{2}}\, dx.
+\end{equation*}
+\subsection{Cambio de variable}
+
+Sea $u:U \longrightarrow V$ un difeomorfismo. Sea $E \subseteq V$ un conjunto Lebesgue medible. Sea 
+
+\noindent $f:E \longrightarrow \left[0,\infty\right]$ medible. Entonces $f \circ u \cdot Ju$ es medible, $u^{-1}(E)$ es Lebesgue medible, y
+\begin{equation*}
+\displaystyle\int_{E} f(x) \, dx = \displaystyle\int_{u^{-1}(E)} f(t) Ju(t) \,dt
+\end{equation*}
+
+Para probar esto, basta con utilizar el teorema de cambio de variable (teorema \ref{variable}), se tiene que 
+\begin{equation*}
+\displaystyle\int_{u^{-1}(E)} f(t) Ju(t) \,dt = \int_E \left[\sum_{x \in u^{-1}\left\lbrace y \right\rbrace}f(t)\right]\, dH_n(y)
+\end{equation*}
+
+Como, por el teorema \ref{hlebesgue} $H_n$ es la medida de Lebesgue en $\mathbb{R}^n$, entonces queda probado el cambio de variable.
+\chapter{Fórmula de la coarea}
+Como ya adelantamos en el capítulo anterior, si $m \leq n$, la fórmula de la coarea establece que la integral de la $n-m$ medida dimensional de los conjuntos de niveles de $f$ se puede calcular integrando el Jacobiano. Esta afirmación es una generalización a largo alcance del teorema de Fubini.
+Definamos entonces la fórmula de la coarea.
+\vspace{1em}
+
+\begin{teo}[Fórmula de la coarea]
+Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función Lipschitz continua, $n \geq m$. Para cada conjunto $A \subseteq \mathbb{R}^n$ $m_n^*-$medible, se tiene que
+\begin{equation*}
+\int_A Jf\, dx=\int_{\mathbb{R}^m}H_{n-m}(A \cap f^{-1}\left\lbrace y \right\rbrace)\, dy.
+\end{equation*}
+\end{teo}
+
+\begin{nota}
+Se puede observar que la fórmula de la coarea es una especie de generalización del teorema de Fubini.
+\end{nota}
+
+\begin{teo}[Integración sobre conjuntos de niveles]
+Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función Lipschitz , $n \geq m$. Para cada función $g:\mathbb{R}^n \longrightarrow \mathbb{R}$ $m_n^*-$sumable, se tiene que
+\begin{enumerate}[(i)]
+\item $g|_{f^{-1}\left\lbrace y \right\rbrace}$ es $m_{n-m}^*-$sumable para $m_m^*-c.t.p$.
+\vspace{0.5em}
+
+\item \begin{equation*}
+\int_{\mathbb{R}^n} g Jf\, dx=\int_{\mathbb{R}^m }\left[ \int_{f^{-1}\left\lbrace y \right\rbrace}g \, dH_{n-m}\right]\, dy.
+\end{equation*}
+\end{enumerate}
+\end{teo}
+\begin{thebibliography}{99}
+\bibitem{extre}  \textsc{departamento de matemáticas de la universidad de Extremadura}, \textit{Apuntes de Teoría de la Medida}, volumen 2, Badajoz, 22 de enero de 2018, \url{http://matematicas.unex.es/~ricarfr/librotmed.pdf}
+
+\bibitem{ingles} \textsc{Lawrence C. Evans} y \textsc{Ronald F. Gariepy}, \textit{Measure Theory and Fine Properties of Functions}, Revised Edition, CRC Press, 2015.
+
+\bibitem{sw} \textsc{C.Swartz}, \textit{Measure, Integration and Function Spaces}, World Scientific,1994.
+\end{thebibliography}
+\end{document}
