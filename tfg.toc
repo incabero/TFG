@@ -9,6 +9,6 @@
 \contentsline {subsection}{\numberline {2.3.1}Longitud de una curva}{16}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}\'Area de un gr\'afico ($n\geq 1$, $m=n+1$)}{17}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}\'Area de una hipersuperficie param\'etrica ($n\geq 1$ , $m=n+1$)}{18}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Subvariedades}{19}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Cambio de variable}{19}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.4}Subvariedades}{20}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Cambio de variable}{20}{subsection.2.3.5}
 \contentsline {chapter}{\numberline {3}F\'ormula de la coarea}{21}{chapter.3}
