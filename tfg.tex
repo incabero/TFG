@@ -19,15 +19,16 @@
 \usepackage{wrapfig}
 \usepackage{cancel}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{verbatim} %para comentar parrafos
 \usepackage{graphicx} % figuras
 \usepackage{multirow, array} % para las tablas
 \usepackage{float} % para usar [H]
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[a4paper]{geometry}
 \usepackage{soul}
 \usepackage{float}
 \graphicspath{ {images/} }
 \usepackage{pdfpages}
-\pagestyle{plain} % es el que utiliza por defecto, headings lo pone arriba el pie de pagina
+%\pagestyle{plain} % es el que utiliza por defecto, headings lo pone arriba el pie de pagina
 
 
 \newtheorem{teo}{Teorema}[chapter]
@@ -219,7 +220,7 @@ H_{p,\delta}\left( A\right) =\inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} 
 \end{equation*}
 donde 
 \begin{equation*}
-\gamma_n= \frac{m\left( B\right)}{2^n}=\frac{\pi^{n/2}}{2^n \Gamma\left( 1+\left( n/2\right) \right) } \hspace{3em} \footnote{
+\gamma_n= \frac{m_n^*\left( B\right)}{2^n}=\frac{\pi^{n/2}}{2^n \Gamma\left( 1+\left( n/2\right) \right) } \hspace{3em} \footnote{
 En el libro \cite{extre} podemos comprobar que esta constante $\gamma_n$ es la anteriormente mencionada.}
 \end{equation*}
 y las cuales, por la proposición \ref{medida exterior}, son medidas exteriores que verifican que
@@ -267,7 +268,7 @@ $\bullet$ Si es 0-dimensional, entonces corresponde con al medida de contar.
 
 $\bullet$ Si es 1-dimensional corresponde con la longitud de la curva.
 
-$\bullet$ Si es d-dimensional, con d $\in  \mathbb{N} $, entonces corresponde con la medida de Lebesgue salvo una constante.
+$\bullet$ Si es d-dimensional, con d $\in  \mathbb{N} $, entonces corresponde con la medida de Lebesgue .
 
 \begin{defi}
 Sea $X$ un conjunto cualquiera y sea $\mathcal{C}=\mathcal{P}\left( X\right) $. Definimos $\mu\left( A\right) $ como el número de elementos de A. Si A tiene n $\in \mathbb{N}$ elementos, entonces $\mu \left( A\right) =n$, y si A es un conjunto de infinitos elementos, entonces $\mu \left( A\right) = \infty$. A esto es lo que denominamos la medida de contar.
@@ -280,11 +281,11 @@ $H_0$ corresponde con la medida de contar.\footnote{Se tomará como convenio que 
 Sea 
 
 \begin{equation*}
-H_{0,\delta}\left( A\right)  =\inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} \gamma_n diam \left( B_n \right)^0 : A \subset \bigcup B_n, diam \left( B_n \right) \leq \delta \right\rbrace  
+H_{0,\delta}\left( A\right)  =\inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} \gamma_0\hspace{0.2em} diam \left( B_n \right)^0 : A \subset \bigcup B_n, diam \left( B_n \right) \leq \delta \right\rbrace  
 \end{equation*}
 
 \begin{equation*}
-= \inf \left\lbrace \displaystyle\sum_{n=1}^{\infty}\gamma_n : A \subset \bigcup B_n, diam \left( B_n \right) \leq \delta \right\rbrace
+= \inf \left\lbrace \displaystyle\sum_{n=1}^{\infty} 1 : A \subset \bigcup B_n, diam \left( B_n \right) \leq \delta \right\rbrace
 \end{equation*}
 \vspace{1em}
 
@@ -319,27 +320,27 @@ La demostración no la haremos, pero se puede consultar en \cite[pág 51]{extre}.
 \end{teo}
 
 \begin{lema}
-Sea $B=B \left( 0,1 \right) $ la bola unidad cerrada en $\mathbb{R}^n$, $m$ la medida de Lebesgue y $Q=\left[  0,1\right] ^n$ el cubo unidad, entonces
+Sea $B=B \left( 0,1 \right) $ la bola unidad cerrada en $\mathbb{R}^n$, $m_n^*$ la medida de Lebesgue y $Q=\left[  0,1\right] ^n$ el cubo unidad, entonces
 \begin{equation*}
-\frac{1}{m\left( B\right) } \leq \frac{H_n\left( Q\right)}{\gamma_n} \leq \left( \sqrt{n}\right) ^n .
+\frac{\gamma_n}{m_n^*\left( B\right) } \leq H_n \leq \gamma_n \left( \sqrt{n}\right) ^n .
 \end{equation*}
 
 \begin{proof}
 
-\noindent Veamos que $\frac{1}{m\left( B\right) } \leq \frac{H_{n}\left( Q\right)}{\gamma_n}$.
+\noindent Veamos que $\frac{\gamma_n}{m_n^*\left( B\right) } \leq H_{n}$.
 \vspace{0.5em}
 
 \noindent Sea $\delta > 0$, $Q \subset \bigcup A_i$  y $diam\left( A_i\right) <  \delta$.
 \vspace{0.5em}
 
-\noindent Para cada $i$ elegimos un $x_i \in A_i, r_i=diam\left( A_i\right) $ y la bola $B_i=B\left( x_i,r_i\right) $. Por tanto, $A_i \subset B_i$ y así se tiene entonces que $Q \subset \bigcup A_i \subset \bigcup B_i$. Tomando medidas de Lebesgue  \footnote{Notemos que $m\left( B_i\right) =m\left( B\left( x_i,r_i\right) \right) =m\left( x_i+r_i B\left( 0,1\right) \right) =m\left( r_i B\left( 0,1\right) \right) =r_i^n m\left( B\left( 0,1\right) \right)$ }, se tiene que
+\noindent Para cada $i$ elegimos un $x_i \in A_i, r_i=diam\left( A_i\right) $ y la bola $B_i=B\left( x_i,r_i\right) $. Por tanto, $A_i \subset B_i$ y así se tiene entonces que $Q \subset \bigcup A_i \subset \bigcup B_i$. Tomando medidas de Lebesgue  \footnote{Notemos que $m_n^*\left( B_i\right) =m_n^*\left( B\left( x_i,r_i\right) \right) =m_n^*\left( x_i+r_i B\left( 0,1\right) \right) =m_n^*\left( r_i B\left( 0,1\right) \right) =r_i^n m_n^*\left( B\left( 0,1\right) \right)$ }, se tiene que
 \begin{equation*}
-1=m\left( Q\right) \leq m\left( \bigcup B_i \right) \leq \displaystyle\sum m\left( B_i\right) = \displaystyle\sum r_i^n m\left( B\right) \hspace{1.5em} 
+1=m_n^*\left( Q\right) \leq m_n^*\left( \bigcup B_i \right) \leq \displaystyle\sum m_n^*\left( B_i\right) = \displaystyle\sum r_i^n m_n^*\left( B\right) \hspace{1.5em} 
 \end{equation*}
 
 \noindent Tomando el ínfimo sobre todos los posibles cubrimientos tenemos
 \begin{equation*}
-\frac{\gamma_n}{m\left( B\right) } \leq \gamma_n \inf \left\lbrace \displaystyle\sum r_i^n : Q \subset \bigcup A_i, diam\left( A_i \right) < \delta, r_i=diam\left( A_i \right) \right\rbrace  = H_{n,\delta}\left( Q\right)  \leq H_n\left( Q\right) 
+\frac{\gamma_n}{m_n^*\left( B\right) } \leq \gamma_n \inf \left\lbrace \displaystyle\sum r_i^n : Q \subset \bigcup A_i, diam\left( A_i \right) < \delta, r_i=diam\left( A_i \right) \right\rbrace  = H_{n,\delta}\left( Q\right)  \leq H_n\left( Q\right) 
 \end{equation*}
 \vspace{1em}
 
@@ -356,20 +357,76 @@ Sea $B=B \left( 0,1 \right) $ la bola unidad cerrada en $\mathbb{R}^n$, $m$ la m
 d\left( x,y\right) =\sqrt{\displaystyle\sum_{i=1}^n \left( x_i-y_i\right) ^2} \leq \sqrt{n r^2} = r \sqrt{n} \hspace{3em} \footnote{La igualdad se alcanza cuando $x=\left(0, \hdots , 0 \right)$ e $y=\left(r, \hdots , r \right)$}
 \end{equation*}
 
-\noindent Entonces tendremos que $diam\left( Q_i\right) =\frac{\sqrt{n}}{m} < \delta_m$ y $ H_{n,\delta_m}\left( Q\right) \leq \gamma_n \displaystyle\sum_{i=1}^{m^n} diam\left( Q_i\right)^n = \gamma_n m^n \frac{\left( \sqrt{n}\right) ^n}{m^n}=$
+\noindent Entonces tendremos que $diam\left( Q_i\right) =\frac{\sqrt{n}}{m} < \delta_m$ y $ H_{n,\delta_m}\left( Q\right) \leq \gamma_n \displaystyle\sum_{i=1}^{m^n} diam\left( Q_i\right)^n = $
 
-\noindent $=\gamma_n \left( \sqrt{n}\right)^n$. 
+\noindent $=\gamma_n m_n \frac{\left( \sqrt{n}\right) ^n}{m^n}=\gamma_n \left( \sqrt{n}\right)^n$. 
 \vspace{0.5em}
 
 \noindent Tomando límite cuando $m \longrightarrow \infty$, entonces $\delta_m \longrightarrow 0$, y se tiene que $H_n\left( Q\right) \leq \gamma_n \left( \sqrt{n}\right)^n$.
 \end{proof}
 \end{lema}
 
+\begin{lema}\label{const1}
+Sea $A \subset \mathbb{R}^n$ un conjunto abierto y acotado. Entonces, si $\epsilon >0$, existen bolas cerradas y disjuntos $B_n \subset a$ con $0<diam(B_n)<\epsilon$ tales que
+\begin{equation*}
+m_n^*(A)\leq \sum m_n^*(B_n)
+\end{equation*}
+\end{lema}
+
+\begin{teo}[Desigualdad isiodiamétrica]\label{const2}
+Dado $A \in \mathcal{B}(\mathbb{R}^n),$ 
+\begin{equation*}
+m_n^*(A) \leq m_n^*(B(0,diam(A)/2)).
+\end{equation*}
+\begin{proof}
+Este teorema se puede demostra de varias maneras. Una demostración se puede ver en \cite[pág 232, Teorema 5.6.3]{extre}
+\end{proof}
+\end{teo}
 
 \begin{teo}\label{hlebesgue}
 $ H_d$ es la medida de Lebesgue en $\mathbb{R}^d$.  
 \begin{proof}
-Nótese que la medida de Haussdorf es invariante por traslaciones, ya que el diámetro de un conjunto lo es. Esto es un resultado conocido de teoría de la medida \cite[pág 38, Teorema 1.5.19 ]{extre}, que las únicas medidas sobre $\mathcal{B}\left(\mathbb{R}^n \right)$ invariante por traslaciones en las que el cubo unidad tiene medida finita son múltiplos de la medida de Lebesgue. De ello se deduce el teorema.
+Nótese que la medida de Haussdorf es invariante por traslaciones, ya que el diámetro de un conjunto lo es. Esto es un resultado conocido de teoría de la medida \cite[pág 38, Teorema 1.5.19 ]{extre}, que las únicas medidas sobre $\mathcal{B}\left(\mathbb{R}^n \right)$ invariante por traslaciones en las que el cubo unidad tiene medida finita son múltiplos de la medida de Lebesgue. Veamos ahora que este múltiplo es 1, lo que equivale a probar que 
+\begin{equation*}
+\gamma_n=m_n^*(B(0,1/2))=\frac{m_n^*(B(0,1))}{2^n}=\frac{\pi^{n/2}}{2^n\Gamma(1+\frac{n}{2})}.
+\end{equation*}
+\vspace{1em}
+
+Veamos que $\gamma_n=m_n^*(B(0,1/2))$, lo que equivale a probar que $H_n(B(0,1/2))=\gamma_n$. Veamos primero que $\gamma_n\leq m_n^*(B(0,1/2))$. 
+\vspace{0.5em}
+
+Sea $C=\left[0,1\right] ^n$ y sean $B_i$ tales que $diam(B_i)<\epsilon$, con $\epsilon >0$, tales que $C \subset \cup B_i$. Se tiene que, aplicando medidas de Lebesgue y aplicando el teorema \ref{const2},
+\begin{equation*}
+1=m_n^*(C)\leq \sum_i m_n^*(B_i) \leq \sum_i m_n^*(B(0,diam(B_i)/2))=m_n^*(B(0,1/2))\sum_i diam(B_i)^n.
+\end{equation*}
+Por tanto, se tiene que 
+\begin{equation*}
+1\leq m_n^*(B(0,1/2))\sum_i diam(B_i)^n.
+\end{equation*}
+Multiplicando a ambos lados de la desigualdad anterior por $\gamma_n$ se tiene que
+\begin{equation*}
+\gamma_n\leq m_n^*(B(0,1/2))\sum_i \gamma_n diam(B_i)^n.
+\end{equation*}
+Por tanto, $\gamma_n \leq m_n^*(B(0,1/2))$, y así $H_n(B(0,1/2))\leq m_n^*(B(0,1/2))$.
+\vspace{0.5em}
+
+Veamos ahora la otra desigualdad.
+\vspace{0.5em}
+
+Consideremos el cubo unidad abierto $A=(0,1)^n$. Sea $\epsilon >0$. Por el lema \ref{const1} se tiene que existen bolas cerradas y disjuntas $B_i\subset A$ con $0\leq diam(B_i)<\epsilon$ tales que
+\begin{equation*}
+1=m_n^*(A)=\sum_i m_n^*(B_i).
+\end{equation*}
+Como además el radio de cada $B_i$ es $diam(B_i)/2$, se tiene que 
+\begin{equation*}
+H_{n,\delta}\leq H_{n,\delta}(\cup B_i)\leq \gamma_n \sum diam(B_i)^n =\gamma_n \sum\frac{m_n^*(B(0,diam(B_i)/2))}{m_n^*(B(0,1/2))}=\frac{\gamma_n}{m_n^*(B(0,1/2))}.
+\end{equation*}
+Por tanto, 
+\begin{equation*}
+H_{n,\delta}(A)m_n^*(B(0,1/2))\leq \gamma_n \Rightarrow m_n^*(B(0,1/2))\leq \gamma_n.
+\end{equation*}
+
+Así tenemos que $\gamma_n=m_n^*(B(0,1/2))$. Esta $\gamma_n$ se puede comprobar que es igual a $\frac{\pi^{n/2}}{2^n\Gamma(1+\frac{n}{2})}$ probando que $m_n^*(B(0,1))=\frac{\pi^{n/2}}{\Gamma(1+\frac{n}{2})}$, lo cual podemos ver, por ejemplo, en \cite[pág 224, Ejemplo 5.5.18]{extre}.
 \end{proof}
 \end{teo}
 
@@ -457,7 +514,7 @@ La demostración la podemos encontrar en \cite[pág.103]{ingles}
 \item Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función localmente Lipschitz continua, y $Z:=\left\lbrace x \in \mathbb{R}^n | f\left( x\right) =0\right\rbrace $. Entonces $Df\left( x\right) =0$ para $m^*_n - $ c.t.p. \hspace{0.5em} $x \in Z$.
 \vspace{0.5em}
 
-\item Sean $f,g:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ funciones localmente Lipschitz continuas, y $Y:=\left\lbrace x \in \mathbb{R}^n | g\left( f\left( x\right) \right) = ....... \right\rbrace  $. Entonces $Dg\left( f\left( x\right) \right) Df\left( x\right) =I$ para $m^*_n -$ c.t.p. \hspace{0.5em} $x \in Y$.
+\item Sean $f,g:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ funciones localmente Lipschitz continuas, y $Y:=\left\lbrace x \in \mathbb{R}^n | g\left( f\left( x\right) \right) = x \right\rbrace  $. Entonces $Dg\left( f\left( x\right) \right) Df\left( x\right) =I$ para $m^*_n -$ c.t.p. \hspace{0.5em} $x \in Y$.
 \end{enumerate}
 \end{teo}
 
@@ -694,19 +751,25 @@ Jf\left( x\right) :=\left[ \left[ Df\left( x\right) \right] \right]
 
 \section{Fórmula del área}
 \begin{lema}
-Suponemos $L: \mathbb{R}^n \longrightarrow \mathbb{R}^m$ lineal, $n \leq m $. Entonces $H_n\left( L\left( A\right) \right) =\left[ \left[ L\right] \right] m_n^*\left( A\right) $.
+Suponemos $L: \mathbb{R}^n \longrightarrow \mathbb{R}^m$ lineal, $n \leq m $. Entonces 
+\begin{equation*}
+H_n\left( L\left( A\right) \right) =\left[ \left[ L\right] \right] m_n^*\left( A\right).
+\end{equation*}
 \end{lema}
 
 \begin{lema}
 Sea $A \subseteq \mathbb{R}^n$ un conjunto $m_n^* - $ medible. Entonces
 
-(i) $f\left( A\right)$ es $H_n-$ medible.
+\begin{enumerate}[(i)]
+\item $f\left( A\right)$ es $H_n-$ medible.
 \vspace{0.5em}
 
-(ii) La aplicación $y\longmapsto H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) $ es $H_n -$ medible en $\mathbb{R}^n$.
+\item La aplicación $y\longmapsto H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) $ es $H_n -$ medible en $\mathbb{R}^n$.
 \vspace{0.5em}
 
-(iii) $ \displaystyle\int_{\mathbb{R}^m} H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n \leq \left( Lip\left( f\right)\right) ^n m_n^*\left( A\right) . $
+\item $ \displaystyle\int_{\mathbb{R}^m} H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n \leq \left( Lip\left( f\right)\right) ^n m_n^*\left( A\right) . $
+\end{enumerate}
+
 \end{lema}
 
 \begin{defi}
@@ -717,13 +780,14 @@ La aplicación $y\longmapsto H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \r
 Sea $t > 1$ y sea $B:= \left\lbrace x | Df\left( x\right) \text{existe}, J f\left( x\right) >0 \right\rbrace $. Entonces hay una colección contable $\left\lbrace E_k\right\rbrace _{k=1}^\infty$ de conjuntos de Borel de $\mathbb{R}^n$ tal que
 \vspace{0.5em}
 
-(i) $B=\bigcup^\infty_{k=1}E_k$
+\begin{enumerate}[(i)]
+\item $B=\bigcup^\infty_{k=1}E_k$
 \vspace{0.5em}
 
-(ii) $f | _{E_k}$ es uno a uno $\left( k=1,2, \hdots \right) $ 
+\item $f | _{E_k}$ es uno a uno $\left( k=1,2, \hdots \right) $ 
 \vspace{0.5em}
 
-(iii) Para cada $k = 1,2, \hdots $ existe un automorfismo simétrico $T_k: \mathbb{R}^n \longrightarrow \mathbb{R}^n$ tal que
+\item Para cada $k = 1,2, \hdots $ existe un automorfismo simétrico $T_k: \mathbb{R}^n \longrightarrow \mathbb{R}^n$ tal que
 \begin{equation*}
 Lip\left( \left(  f | _{E_k} \right) \circ T_k^{-1}\right) \leq t
 \end{equation*}
@@ -733,6 +797,8 @@ Lip\left(  T_k \circ \left(  f | _{E_k} \right) \right)^{-1} \leq t
 \begin{equation*}
 t^{-n} | det \left( T_k\right) | \leq J f | _{E_k} \leq t^{n} | det \left( T_k\right) |
 \end{equation*}
+\end{enumerate}
+
 \end{lema}
 
 \begin{teo}[Fórmula de área]
@@ -758,17 +824,20 @@ Por el teorema de convergencia monótona,
 \end{equation*}
 Por la fórmula del área
 \begin{equation*}
-\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{A_i}  Jf \, dx=\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{\mathbb{R}^m}   H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)= \displaystyle\int_{\mathbb{R}^m} \displaystyle\sum_{i=1}^{\infty} \frac{1}{i}  H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)
+\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{A_i}  Jf \, dx=\displaystyle\sum_{i=1}^{\infty} \frac{1}{i} \displaystyle\int_{\mathbb{R}^m}   H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)=
 \end{equation*}
 \begin{equation*}
-=\displaystyle\int_{\mathbb{R}^m} \displaystyle\sum_{i=1}^\infty \frac{1}{i} \displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} \mathcal{X}_{A_i} \, dH_n(y)=\displaystyle\int_{\mathbb{R}^m}  \displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} \displaystyle\sum_{i=1}^\infty \frac{1}{i}  \mathcal{X}_{A_i} \, dH_n(y)=\displaystyle\int_{\mathbb{R}^m} \left[\displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} g(x) \right] \, dH_n(y)
+= \displaystyle\int_{\mathbb{R}^m} \displaystyle\sum_{i=1}^{\infty} \frac{1}{i}  H_0\left( A\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y)=\displaystyle\int_{\mathbb{R}^m} \displaystyle\sum_{i=1}^\infty \frac{1}{i} \displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} \mathcal{X}_{A_i} \, dH_n(y)=
+\end{equation*}
+\begin{equation*}
+=\displaystyle\int_{\mathbb{R}^m}  \displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} \displaystyle\sum_{i=1}^\infty \frac{1}{i}  \mathcal{X}_{A_i} \, dH_n(y)=\displaystyle\int_{\mathbb{R}^m} \left[\displaystyle\sum_{x \in f^{-1}\left\lbrace y \right\rbrace} g(x) \right] \, dH_n(y)
 \end{equation*}
 \underline{Caso 2:} Descomponemos g como $g=g^+ - g^-$ y aplicamos el caso anterior.
 \end{proof}
 \end{teo}
 
 \section{Aplicaciones}
-\subsection{Longitud de una curva}
+\subsection{Longitud de una curva paramétrica}
 Veamos que se tiene que $H_1=$ longitud de la curva $=\displaystyle\int_a^b Jf \, dx$.
 
 Sea $f:\mathbb{R} \longrightarrow \mathbb{R}^m$ una función Lipschitz continua e inyectiva, $f=\left(f^1,\hdots , f^m \right)$. Se tiene que $Df=\left(f^1_x,\hdots , f^m_x \right)$ y $(Jf)^2=\left[\left[Df \right] \right]^2=det \left(Df^* \circ Df \right)=(f^1_x)^2+ \hdots +(f^m_x)^2$. Por lo tanto, 
@@ -861,6 +930,9 @@ Por tanto,
 
 \vspace{1em}
 
+Nótese que este caso engloba el caso anterior, ya que siempre se da que el área de un gráfico se puede ver como el área de una hipersuperficie paramétrica, pero el recíproco no siempre es cierto.
+\vspace{1em}
+
 Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^{n+1}$ una función Lipschitz continua e inyectiva, $f=\left(f^1, \hdots, f^{n+1} \right)$.
 
 Se tiene entonces que 
@@ -900,6 +972,7 @@ Por tanto,
 \displaystyle\int_{\mathbb{R}^{n+1}} H_0\left( U\cap f^{-1}\left\lbrace y\right\rbrace \right) \, dH_n(y) =\displaystyle\int_S 1 \, dH_n(y) + \displaystyle\int_{\mathbb{R}^{n+1} - S} 0 \, dH_n(y)=H_n(S)
 \end{equation*}
 
+\begin{comment}
 \begin{eje}[$n=1,m=2$]
 Sea $f:\mathbb{R} \longrightarrow \mathbb{R}^2$ tal que $f(x)=(x,\sin x)$. Entonces 
 \begin{equation*}
@@ -930,63 +1003,77 @@ Así, se tiene que, para $U\subseteq \mathbb{R}$ abierto, si $S:=f(U)\subseteq \m
 H_1(S)=\text{área 1-dimensional de S} = \int_U \sqrt{1+\cos^2x}\, dx
 \end{equation*}
 \end{eje}
-
+\end{comment}
 \begin{eje}[$n=2,m=3$]
-Sea $f:\mathbb{R}^2 \longrightarrow \mathbb{R}^3$ tal que $f(x)=(x_1,x_2,\sin x)$ donde $x=(x_1,x_2)$. Entonces 
+Sea $f:(- \pi, \pi) \times (-\pi, \pi) \longrightarrow \mathbb{R}^3$ tal que $f(x)=(x_1,x_1+x_2,\sin (x_1x_2))$ donde $x=(x_1,x_2)$. Entonces 
 \begin{equation*}
 Df=\left(\begin{array}{cc}
 1&0\\
-0&1\\
-\cos x&\cos x\\
+1&1\\
+x_2\cos (x_1x_2)&x_1\cos (x_1x_2)\\
 \end{array}\right) \quad \quad Df^*=\left(\begin{array}{ccc}
-1&0&\cos x\\
-0&1&\cos x\\
+1&1&x_2\cos (x_1x_2)\\
+0&1&x_1\cos (x_1x_2)\\
 \end{array} \right)
 \end{equation*}
 
 Por tanto, se tiene que 
 \begin{equation*}
 Jf=det(Df^* \circ Df)=det\left( \left(\begin{array}{ccc}
-1&0&\cos x\\
-0&1&\cos x\\
+1&1&x_2\cos (x_1x_2)\\
+0&1&x_1\cos (x_1x_2)\\
 \end{array} \right) \left(\begin{array}{cc}
 1&0\\
-0&1\\
-\cos x&\cos x\\
-\end{array}\right)\right) = det\left(\left(\begin{array}{cc}
-1+\cos^2x&\cos^2x\\
-\cos^2x&1+\cos^2x\\
-\end{array}\right)\right)
+1&1\\
+x_2\cos (x_1x_2)&x_1\cos (x_1x_2)\\
+\end{array}\right)\right) 
 \end{equation*}
 
-$=1+2\cos^2x$
-\vspace{0.5em}
 
-Por otra parte, sean $\widehat{f^1}=(x_2,\sin x)$, $\widehat{f^2}=(x_1,\sin x)$ y $\widehat{f^3}=(x_1,x_2)$. Se tiene entonces que 
+\begin{equation*}
+det\left(\left(\begin{array}{cc}
+2+x_2^2\cos^2(x_1x_2)&1+x_1x_2\cos^2(x_1x_2)\\
+1+x_1x_2\cos^2(x_1x_2)&1+x_1^2\cos^2(x_1x_2)\\
+\end{array}\right)\right)=1 + 2 x_1^2 \cos^2(x_1x_2) 
+\end{equation*} 
+$-2 x_1 x_2 \cos^2(x_1x_2) +x_2^2 \cos^2(x_1x_2)$
+\vspace{1em}
+
+Por otra parte, sean $\widehat{f^1}=(x_1+x_2,\sin (x_1x_2))$, $\widehat{f^2}=(x_1,\sin (x_1x_2))$ y $\widehat{f^3}=(x_1,x_1+x_2)$. Se tiene entonces que 
 \begin{equation*}
 D\widehat{f^1}=\left(\begin{array}{cc}
-0&1\\
-\cos x& \cos x\\
-\end{array}\right) \quad \quad D\widehat{f^2}=\left(\begin{array}{cc}
+1&1\\
+x_2\cos (x_1x_2)& x_1\cos (x_1x_2)\\
+\end{array}\right) \quad  
+\end{equation*}
+\begin{equation*}
+D\widehat{f^2}=\left(\begin{array}{cc}
 1&0\\
-\cos x& \cos x\\
-\end{array}\right) \quad \quad D\widehat{f^3}=\left(\begin{array}{cc}
+x_2\cos (x_1x_2)& x_1\cos (x_1x_2)\\
+\end{array}\right) \quad  D\widehat{f^3}=\left(\begin{array}{cc}
 1&0\\
-0&1\\
+1&1\\
 \end{array}\right) 
 \end{equation*}
 
 Por tanto, se tiene también que 
 \begin{equation*}
-Jf=\sum_{k=1}^3 |D\widehat{f^k}|^2=(-\cos x)^2+(\cos x)^2+1=1+\cos^2x.
+Jf=\sum_{k=1}^3 |D\widehat{f^k}|^2=(x_1\cos(x_1x_2)-x_2\cos(x_1x_2))^2+x_1^2\cos^2(x_1x_2)+1=
 \end{equation*}
-Así, se tiene que, para $U\subseteq \mathbb{R}^2$ abierto, si $S:=f(U)\subseteq \mathbb{R}^3$, entonces
+$=1 + (2 x_1^2 - 2 x_1 x_2 + x_2^2) \cos^2(x_1x_2)$.
+
+Así, se tiene que, para $U=(- \pi, \pi) \times (-\pi, \pi) $ , si $S:=f(U)\subseteq \mathbb{R}^3$, entonces
 \begin{equation*}
-H_2(S)=\text{área 2-dimensional de S} = \int_U \sqrt{1+2\cos^2x}\, dx
+H_2(S)=\text{área 2-dimensional de S} = \int_U \sqrt{1 + (2 x_1^2 - 2 x_1 x_2 + x_2^2) \cos^2(x_1x_2)}\, dx \approx  85.3121
 \end{equation*}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1.2]{imagen3D}
+\caption{Representación de la función $f(x)$.}
+\end{figure}
 \end{eje}
 \subsection{Subvariedades}
-Sea $ M \subseteq \mathbb{R}^m$ Lipschitz continuo, subvariedad n-dimensional. Supongamos que $U \subseteq \mathbb{R}^n$ and $f :U \longrightarrow M$ es el gráfico de M. Sea un conjunto $ A \subseteq f(U)$, donde $A$ es Borel, y sea $ B := f^{-1}(A)$. Definimos
+Sea $ M \subseteq \mathbb{R}^m$ Lipschitz continuo, subvariedad n-dimensional. Supongamos $U \subseteq \mathbb{R}^n$ y $f :U \longrightarrow M$ el gráfico de M. Sea un conjunto $ A \subseteq f(U)$, donde $A$ es Borel, y sea $ B := f^{-1}(A)$. Definimos
 \begin{equation*}
 g_{ij}:=f_{x_i} \cdot f_{x_j} \hspace{1em} (i,j=1, \hdots , n).
 \end{equation*}
@@ -1050,10 +1137,10 @@ Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función Lipschitz continua
 Se puede observar que la fórmula de la coarea es una especie de generalización del teorema de Fubini.
 \end{nota}
 
-\begin{teo}[Integración sobre conjuntos de niveles]
-Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función Lipschitz , $n \geq m$. Para cada función $g:\mathbb{R}^n \longrightarrow \mathbb{R}$ $m_n^*-$sumable, se tiene que
+\begin{teo}[Integración sobre conjuntos de niveles]\label{coarea2}
+Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función Lipschitz , $n \geq m$. Para cada función $g:\mathbb{R}^n \longrightarrow \mathbb{R}$ $m_n^*-$integrable, se tiene que
 \begin{enumerate}[(i)]
-\item $g|_{f^{-1}\left\lbrace y \right\rbrace}$ es $m_{n-m}^*-$sumable para $m_m^*-c.t.p$.
+\item $g|_{f^{-1}\left\lbrace y \right\rbrace}$ es $m_{n-m}^*-$integrable para $m_m^*-c.t.p$.
 \vspace{0.5em}
 
 \item \begin{equation*}
@@ -1061,11 +1148,163 @@ Sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}^m$ una función Lipschitz , $n \ge
 \end{equation*}
 \end{enumerate}
 \end{teo}
+
+\section{Aplicaciones}
+Nuestro objetivo es hallar la superficie, volumen, de figuras en $\mathbb{R}^n$. Por ejemplo, si tuviésemos la siguiente figura, un elipsoide macizo en $\mathbb{R}^3$, 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{elipsoide}
+\end{figure}
+podríamos calcular su volumen aplicando Fubini (secciones).
+Esto sería sencillo en ciertos casos.
+\vspace{1em}
+
+Asimismo, para hallar el volumen de un elipsoide $E$, podemos sumar el área de cada elipse $E_t$, entonces se tendría que
+\begin{equation*}
+\text{Volumen del elipsoide}=H_3(E)=\int_a^b H_2(E_t) \, dt
+\end{equation*}
+donde $[a,b]$ es el recorrido del elipsoide. 
+\vspace{1em}
+
+\noindent Probemos que esto es cierto.
+\vspace{1em}
+
+\noindent Por un lado se tiene que, por la fórmula de la coarea, 
+\begin{equation*}
+\int_A Jf\, dx=\int_{\mathbb{R}} H_2(A \cap f^{-1}\left\lbrace t \right\rbrace)\, dt=\int_a^b H_2(E_t)\, dt.
+\end{equation*}
+
+\noindent Por tanto falta ver que $\displaystyle\int_A Jf\,dx =H_3(E)$. Para ello, definimos una función 
+
+\noindent $f:\mathbb{R}^2 \longrightarrow \mathbb{R}^3$ que a partir de una elipse nos cree el elipsoide. Así, aplicando lo visto en las aplicaciones de la fórmula del área, tenemos que $\displaystyle\int_A Jf\,dx =H_3(E)$.
+
+
+
+\vspace{1em}
+
+Otro problema a tratar sería calcular el área y volumen de por ejemplo, una esfera. para calcular el área, procediendo de manera similar, podríamos intuir que 
+\begin{equation*}
+H_2(M)=\int_a^b H_1(M_t)\, dt,
+\end{equation*} 
+
+\noindent es decir, que el área de nuestra figura sería la suma de las longitudes de todas las secciones de ella, es decir, circunferencias. Pero esto no es cierto. Veámoslo primero tomando una esfera concreta y luego de forma general para una figura cualquiera.
+\vspace{1em}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{esfera}
+\caption{Imagen de una esfera en 3D}
+\end{figure}
+\vspace{1em}
+
+Suponemos una esfera $M$ en $\mathbb{R}^3$ de radio 1. El área de esta esfera es conocido $\left(4 \pi \right)$, y la longitud de una circunferencia es $2 \pi r$. Las circunferencias que obtenemos seccionando nuestra esfera tienen longitud $2 \pi \sqrt{1-z^2}$. Por tanto, si se cumple que 
+\begin{equation*}
+H_2(M)=\int_{-1}^{1} H_1(M_t)\, dt,
+\end{equation*}
+
+\noindent se tendría que cumplir que $\int_{-1}^1 2 \pi \sqrt{1-z^2} \, dz= 4 \pi$, pero $\int_{-1}^1 2 \pi \sqrt{1-z^2} \, dz= \pi^2$. 
+
+\vspace{1em}
+
+Probémoslo ahora para una función $f$ cualquiera.
+\vspace{1em}
+
+Sea 
+\begin{equation*}
+\begin{array}{crcl}
+
+f:&\mathbb{R}^2 & \longrightarrow& \mathbb{R}\\
+&(x,y)&\longmapsto&z=f(x,y)\\
+\end{array}
+\end{equation*}
+Por la fórmula de la coarea, se tendría que 
+\begin{equation*}
+\int_U Jf \, dx = \int_{\text{altura mínima}}^{\text{altura máxima}} H_1(\text{curvas de nivel de altura z})\, dz
+\end{equation*}
+y tenemos que 
+\begin{equation*}
+\int_U Jf \, dx =\int_U \sqrt{f_x^2+f_y^2}\, dx\, dy
+\end{equation*}
+
+\noindent Ahora, por las aplicaciones de la fórmula del área, para la misma f
+\begin{equation*}
+\begin{array}{crcl}
+f:&U\subseteq \mathbb{R}^2&\longrightarrow&\mathbb{R}\\
+&(x,y)&\longmapsto&f(x,y)\\
+\end{array}
+\end{equation*}
+se tiene que
+
+\begin{equation*}
+\text{Área(U)}=\int_U Jf\, dx=\int_U (1+|Df|^2)^\frac{1}{2}=\int_U \sqrt{1+f_x^2+f_y^2}\, dx\, dy.
+\end{equation*}
+
+Por lo tanto, hemos visto que las integrales del jacobiano de f no coinciden. Por tanto, no se cumple que 
+\begin{equation*}
+H_2 = \int_{\text{altura mínima}}^{\text{altura máxima}} H_1(\text{curvas de nivel de altura z})\, dz.
+\end{equation*}
+\vspace{1em}
+
+Siguiendo con el ejemplo, para hallar su volumen podemos ir descomponiendo la esfera en esferas centradas en el mismo punto pero de radio algo menor que el de la esfera original, procediendo recursivamente hasta llegar al centro de la esfera, lo que equivaldría a que
+\begin{equation*}
+H_3(S)=\int_a^b H_2(S_t)\, dt,
+\end{equation*}
+es decir, calcular el área de todas estas sub-esferas y sumarlas todas. Esto se cumple, ya que su demostración es equivalente a la demostración anterior del volumen del elipsoide.
+\vspace{2em}
+
+Pero, ¿realmente utilizando la fórmula de la coarea es el único modo de hallar su volumen? La respuesta es no, ya que podemos utilizar una parametrización de la esfera e integrarla hasta conseguir hallar el volumen, como se ha visto en cursos pasados. Por tanto, utilizando coordenadas esféricas conseguimos hallar el volumen. 
+\vspace{1em}
+
+En el ejemplo anterior estábamos ante una esfera en $\mathbb{R}^3$, pero si estamos ante una esfera más general en $\mathbb{R}^n$, ¿resulta igual de sencillo hallar su volumen utilizando una parametrización? Obviamente no, ya que a medida que aumentamos la dimensión, la parametrización de la esfera se vuelve más compleja, y por tanto las integrales a resolver son más complicadas.
+\vspace{1em}
+
+Para simplificar estos cálculos, definamos el siguiente teorema sobre coordenadas polares como aplicación a la fórmula de la coarea.
+\vspace{1em}
+
+\begin{teo}[Coordenadas polares]
+Sea $g:\mathbb{R}^n \longrightarrow \mathbb{R}$ una función $m^*_n-$integrable. Entonces
+\begin{equation*}
+\int_{\mathbb{R}^n} g\, dx=\int_0^\infty \left( \int_{\partial B(r)} g\,dH_{n-1} \right) \, dr.
+\end{equation*}
+En particular, 
+\begin{equation*}
+\frac{d}{dr}\left(\int_{B(r)} g\,dx\right)=\int_{\partial B(r)} g\,dH_{n-1}
+\end{equation*}
+para $m^*_1-c.t.p.$ y $r>0$.
+\begin{proof}
+Sea $g:\mathbb{R}^n \longrightarrow \mathbb{R}$ y sea $f:\mathbb{R}^n \longrightarrow \mathbb{R}$ una función Lipschitz tal que 
+
+\noindent $Jf(x)=1$. Entonces, por el teorema \ref{coarea2} se tiene que 
+\begin{equation*}
+\int_{\mathbb{R}^n} g\, dx=\int_{\mathbb{R}} \left(\int_{f^{-1}\left\lbrace y \right\rbrace} g \, dH_{n-1} \right) \, dy
+\end{equation*}
+Al hacer el cambio a coordenadas polares, se obtiene lo que queríamos probar.
+\end{proof}
+\end{teo}
+\vspace{1em}
+
+Otra aplicación a destacar son los conjuntos de niveles de funciones de distancia. La idea base de ello consiste en, dado un conjunto, hallar el área de la superficie comprendida entre todos los puntos que estén entre una  distancia $a$ y una distancia $b$ de dicho conjunto, con $a<b$. 
+\vspace{1em}
+
+\begin{teo}[Conjuntos de niveles de funciones de distancia]
+Asumimos $K \subset \mathbb{R}^n$ un conjunto no vacío y compacto. Escribimos 
+\begin{equation*}
+d(x):=dist(x,K) \quad \quad (x \in \mathbb{R}^n).
+\end{equation*}
+Entonces, para cada $0<a<b$ tenemos que 
+\begin{equation*}
+\int_a^b H_{n-1}(\left\lbrace d=t\right\rbrace)\, dt=m_n^*(\left\lbrace a \leq d\leq b\right\rbrace).
+\end{equation*}
+\end{teo}
+
+\vspace{1em}
+
+Un caso particular de esto sería hallar el área de una esfera en $\mathbb{R}^2$. En este caso queremos hallar la superficie comprendida entre una distancia $r$ del centro de la esfera, donde $r$ es el radio de ésta, y una distancia $0$. El ejemplo en $\mathbb{R}^2$ se puede ampliar a $\mathbb{R}^n$.
 \begin{thebibliography}{99}
 \bibitem{extre}  \textsc{departamento de matemáticas de la universidad de Extremadura}, \textit{Apuntes de Teoría de la Medida}, volumen 2, Badajoz, 22 de enero de 2018, \url{http://matematicas.unex.es/~ricarfr/librotmed.pdf}
 
 \bibitem{ingles} \textsc{Lawrence C. Evans} y \textsc{Ronald F. Gariepy}, \textit{Measure Theory and Fine Properties of Functions}, Revised Edition, CRC Press, 2015.
 
-\bibitem{sw} \textsc{C.Swartz}, \textit{Measure, Integration and Function Spaces}, World Scientific,1994.
+\bibitem{sw} \textsc{C.Swartz}, \textit{Measure, Integration and Function Spaces}, World Scientific,  1994.
 \end{thebibliography}
 \end{document}
